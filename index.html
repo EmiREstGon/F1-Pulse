@@ -1,11 +1,534 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="dark" lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F1 Pulse</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Space+Grotesk:wght@300;400;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#ffb4a9",
+                        "surface-tint": "#ffb4a9",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#001a40",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-container": "#ffe6e2",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#002f67",
+                        "inverse-primary": "#c00006",
+                        "surface-dim": "#111317",
+                        "on-surface": "#e2e2e8",
+                        "tertiary": "#acc7ff",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-tertiary-fixed-variant": "#004491",
+                        "outline": "#ae8882",
+                        "primary-container": "#d31411",
+                        "tertiary-fixed": "#d7e2ff",
+                        "inverse-on-surface": "#2f3035",
+                        "inverse-surface": "#e2e2e8",
+                        "surface-container-low": "#1a1c20",
+                        "surface-container-highest": "#333539",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-secondary-container": "#b4b5b5",
+                        "on-surface-variant": "#e7bdb7",
+                        "on-tertiary-container": "#e5ebff",
+                        "tertiary-container": "#0067d4",
+                        "surface-container": "#1e2024",
+                        "on-secondary-fixed-variant": "#454747",
+                        "secondary": "#c6c6c7",
+                        "primary-fixed": "#ffdad5",
+                        "on-background": "#e2e2e8",
+                        "on-primary": "#690002",
+                        "on-primary-fixed": "#410001",
+                        "background": "#111317",
+                        "secondary-container": "#454747",
+                        "on-primary-fixed-variant": "#930003",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "primary-fixed-dim": "#ffb4a9",
+                        "outline-variant": "#5d3f3b",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0c0e12",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "surface-variant": "#333539",
+                        "on-secondary": "#2f3131",
+                        "surface-container-high": "#282a2e",
+                        "surface": "#111317",
+                        "surface-bright": "#37393e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Space Grotesk", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <script src="assets/js/app.js"></script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .italic-slant {
+            font-style: italic;
+            transform: skewX(-5deg);
+        }
+
+        .clip-path-slant {
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+        }
+
+        .racing-grid {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
 </head>
-<body>
-    F1 Pulse
+
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-white">
+    <!-- TopAppBar -->
+    <nav
+        class="fixed top-0 w-full z-50 border-b border-white/10 bg-zinc-950/40 backdrop-blur-xl flex justify-between items-center px-8 py-4 max-w-full mx-auto">
+        <div class="flex items-center gap-4">
+            <a href="">
+                <img alt="F1 Pulse Logo" class="h-12 w-auto" src="assets/img/logos/web/Logo Dark.png" draggable="false" />
+            </a>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+            <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
+                href="#">Pilotos</a>
+            <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
+                href="#">Escuderías</a>
+            <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
+                href="#">Calendario</a>
+        </div>
+    </nav>
+    <main class="pt-16">
+        <!-- Hero Section: Dynamic Data Focus -->
+        <section class="relative h-[855px] overflow-hidden bg-surface-container-lowest" id="hero-section">
+            <div class="absolute inset-0 racing-grid opacity-20"></div>
+            <div class="relative h-full flex flex-col justify-center px-12 md:px-24">
+                <div
+                    class="absolute left-0 top-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-primary-container to-transparent opacity-30">
+                </div>
+                <div class="max-w-4xl z-10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="h-1 w-12 bg-primary-container"></div>
+                        <span class="font-headline uppercase tracking-[0.3em] text-primary text-xs font-bold">Datos
+                            Actualizados · Temporada 2026</span>
+                    </div>
+                    <h1
+                        class="text-6xl md:text-9xl font-black italic font-headline leading-none tracking-tighter mb-8 uppercase text-white drop-shadow-2xl">
+                        VIVE LA <span class="text-primary-container">FÓRMULA 1</span> EN UN SOLO LUGAR
+                    </h1>
+                    <div class="flex flex-col md:flex-row gap-6 items-start md:items-center">
+                        <button
+                            class="group relative px-10 py-5 bg-primary-container text-on-primary-container font-headline font-black italic uppercase tracking-tighter text-xl overflow-hidden">
+                            <span class="relative z-10">Explorar temporada</span>
+                            <div
+                                class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 opacity-10">
+                            </div>
+                        </button>
+                        <div class="flex gap-4">
+                            <div class="p-4 bg-surface-container-high border-l-2 border-primary-container"
+                                id="next-gp-block">
+                                <p class="text-[10px] font-headline uppercase text-zinc-500 tracking-widest">Próximo
+                                    Gran Premio</p>
+                                <p class="font-headline italic font-bold text-white uppercase" id="next-gp-name">
+                                    {{circuit_name}}, {{country}}</p>
+                                <p class="text-[10px] font-headline uppercase text-primary tracking-tighter"
+                                    id="next-gp-date">{{date}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Circuit Slider Preview -->
+                <div class="absolute bottom-12 right-12 flex gap-4" id="circuit-highlights">
+                    <div
+                        class="w-32 h-20 bg-zinc-800 relative group cursor-pointer overflow-hidden border border-white/5">
+                        <img alt="F1 Circuit Preview"
+                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all"
+                            src="" />
+                        <div
+                            class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span
+                                class="text-[10px] font-headline font-bold text-white uppercase text-center px-2">{{circuit_name}}</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-primary-container"></div>
+                    </div>
+                    <div
+                        class="w-32 h-20 bg-zinc-800 relative group cursor-pointer overflow-hidden border border-white/5">
+                        <img alt="F1 Circuit Preview" class="w-full h-full object-cover grayscale opacity-50" src="" />
+                        <div
+                            class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span
+                                class="text-[10px] font-headline font-bold text-white uppercase text-center px-2">{{circuit_name}}</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-32 h-20 bg-zinc-800 relative group cursor-pointer overflow-hidden border border-white/5">
+                        <img alt="F1 Circuit Preview" class="w-full h-full object-cover grayscale opacity-50" src="" />
+                        <div
+                            class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span
+                                class="text-[10px] font-headline font-bold text-white uppercase text-center px-2">{{circuit_name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="absolute inset-0 pointer-events-none bg-gradient-to-t from-background via-transparent to-transparent">
+            </div>
+        </section>
+        <section>
+            <!-- Circuit Detail Quick Block -->
+            <div class="md:col-span-3 bg-surface-container-high p-8 m-8 flex flex-col md:flex-row justify-between items-center gap-8 border-2 border-white/5 rounded-2xl"
+                id="circuit-info-block">
+                <div class="flex items-center gap-6">
+                    <div class="w-16 h-16 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-primary-container">info</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <p class="text-white font-headline font-bold italic uppercase text-xl">Información del Circuito
+                            Actual</p>
+                        <p class="text-sm text-zinc-500 uppercase tracking-widest">{{circuit_name}} · {{location}}</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-6 gap-12">
+                    <div class="text-center">
+                        <p class="text-zinc-500 text-[10px] uppercase font-headline">Longitud</p>
+                        <p class="text-white font-bold italic">{{length}} KM</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-zinc-500 text-[10px] uppercase font-headline">Vueltas</p>
+                        <p class="text-white font-bold italic">{{laps}}</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-zinc-500 text-[10px] uppercase font-headline">Récord</p>
+                        <p class="text-white font-bold italic">{{lap_record}}</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-zinc-500 text-[10px] uppercase font-headline">Piloto récord</p>
+                        <p class="text-white font-bold italic">{{lap_record_driver}}</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-zinc-500 text-[10px] uppercase font-headline">Año récord</p>
+                        <p class="text-white font-bold italic">{{lap_record_year}}</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-zinc-500 text-[10px] uppercase font-headline">Curvas</p>
+                        <p class="text-white font-bold italic">{{turns}}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Data Dashboard Section -->
+        <section class="py-24 bg-background" id="data-dashboard">
+            <div class="max-w-7xl mx-auto px-8 mb-12 flex justify-between items-center">
+                <h2 class="text-3xl font-black italic font-headline text-white uppercase">PANEL DE <span
+                        class="text-primary-container">RESULTADOS</span></h2>
+            </div>
+            <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Classification Drivers -->
+                <div class="bg-surface-container relative p-8 border-l-2 border-primary-container">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="material-symbols-outlined text-primary-container">emoji_events</span>
+                        <span
+                            class="font-headline uppercase italic font-bold tracking-widest text-zinc-400">Clasificación
+                            de Pilotos</span>
+                    </div>
+                    <div class="space-y-4" id="driver-standings">
+                        <div class="flex justify-between items-center py-2 border-b border-white/5">
+                            <span class="text-white font-bold italic">1. {{driver_name}}</span>
+                            <span class="text-primary-container font-mono">{{points}} PTS</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-white/5">
+                            <span class="text-white font-bold italic">2. {{driver_name}}</span>
+                            <span class="text-primary-container font-mono">{{points}} PTS</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Classification Teams -->
+                <div class="bg-surface-container relative p-8 border-l-2 border-zinc-700">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="material-symbols-outlined text-zinc-500">factory</span>
+                        <span
+                            class="font-headline uppercase italic font-bold tracking-widest text-zinc-400">Constructores</span>
+                    </div>
+                    <div class="space-y-4" id="constructor-standings">
+                        <div class="flex justify-between items-center py-2 border-b border-white/5">
+                            <span class="text-white font-bold italic">{{team_name}}</span>
+                            <span class="text-zinc-300 font-mono">{{points}} PTS</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Last Session Info -->
+                <div class="bg-primary-container p-8 flex flex-col justify-between relative overflow-hidden">
+                    <div class="z-10">
+                        <p
+                            class="text-on-primary-container/60 font-headline uppercase italic tracking-widest text-xs mb-2">
+                            Última Sesión Disponible</p>
+                        <h5 class="text-2xl font-black font-headline text-white italic tracking-tighter uppercase">
+                            {{race_name}}</h5>
+                        <p class="text-white/80 text-sm font-headline italic mt-2">{{session_type}} - Finalizado</p>
+                    </div>
+                    <div class="z-10 mt-8">
+                        <button
+                            class="bg-white/10 hover:bg-white/20 transition-colors px-4 py-2 text-xs font-headline uppercase font-bold italic tracking-widest">
+                            Ver Tiempos Completos
+                        </button>
+                    </div>
+                    <div class="absolute top-[-20%] right-[-10%] opacity-10">
+                        <span class="text-[120px] font-black italic font-headline leading-none">DATA</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Calendar Section -->
+        <section class="py-24 bg-background relative overflow-hidden" id="season-calendar">
+            <div class="px-12 md:px-24 mb-16 flex justify-between items-end">
+                <div>
+                    <h2
+                        class="text-4xl md:text-6xl font-black italic font-headline uppercase tracking-tighter text-white">
+                        CALENDARIO DE LA <span class="text-primary-container">TEMPORADA</span></h2>
+                </div>
+                <div class="hidden md:block h-[1px] flex-grow mx-12 bg-zinc-800 relative">
+                    <div
+                        class="absolute right-0 top-[-3px] h-2 w-2 rounded-full bg-primary-container shadow-[0_0_10px_#d31411]">
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-px bg-white/5" id="circuit-list">
+                <!-- Dynamic Circuit Card Placeholder -->
+                <div
+                    class="bg-surface-container-low group hover:bg-surface-container-high transition-all p-8 relative overflow-hidden circuit-card">
+                    <div
+                        class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 group-hover:text-primary-container transition-all">
+                        <span class="text-4xl font-black italic font-headline">01</span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-8">
+                        <div class="w-6 h-4 bg-zinc-700"></div>
+                        <span
+                            class="text-[10px] font-headline uppercase tracking-[0.2em] text-zinc-400">{{country}}</span>
+                    </div>
+                    <h3 class="text-2xl font-bold italic font-headline text-white mb-2 uppercase">{{race_name}}</h3>
+                    <p class="text-xs text-zinc-500 font-headline uppercase tracking-widest mb-6">{{circuit_name}}</p>
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-outlined text-primary-container text-sm">calendar_month</span>
+                        <span class="text-xs font-mono text-zinc-300">FECHA A CONFIRMAR</span>
+                    </div>
+                </div>
+                <!-- Repeat for visual structure -->
+                <div
+                    class="bg-surface-container-low group hover:bg-surface-container-high transition-all p-8 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 group-hover:text-primary-container transition-all">
+                        <span class="text-4xl font-black italic font-headline">02</span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-8">
+                        <div class="w-6 h-4 bg-zinc-700"></div>
+                        <span
+                            class="text-[10px] font-headline uppercase tracking-[0.2em] text-zinc-400">{{country}}</span>
+                    </div>
+                    <h3 class="text-2xl font-bold italic font-headline text-white mb-2 uppercase">{{race_name}}</h3>
+                    <p class="text-xs text-zinc-500 font-headline uppercase tracking-widest mb-6">{{circuit_name}}</p>
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-outlined text-primary-container text-sm">calendar_month</span>
+                        <span class="text-xs font-mono text-zinc-300">FECHA A CONFIRMAR</span>
+                    </div>
+                </div>
+                <div
+                    class="bg-surface-container-low group hover:bg-surface-container-high transition-all p-8 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 group-hover:text-primary-container transition-all">
+                        <span class="text-4xl font-black italic font-headline">03</span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-8">
+                        <div class="w-6 h-4 bg-zinc-700"></div>
+                        <span
+                            class="text-[10px] font-headline uppercase tracking-[0.2em] text-zinc-400">{{country}}</span>
+                    </div>
+                    <h3 class="text-2xl font-bold italic font-headline text-white mb-2 uppercase">{{race_name}}</h3>
+                    <p class="text-xs text-zinc-500 font-headline uppercase tracking-widest mb-6">{{circuit_name}}</p>
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-outlined text-primary-container text-sm">calendar_month</span>
+                        <span class="text-xs font-mono text-zinc-300">FECHA A CONFIRMAR</span>
+                    </div>
+                </div>
+                <!-- View All Placeholder -->
+                <div
+                    class="bg-surface-container-low flex flex-col items-center justify-center p-8 group cursor-pointer">
+                    <div
+                        class="w-12 h-12 rounded-full border border-zinc-700 flex items-center justify-center group-hover:bg-primary-container group-hover:border-primary-container transition-all mb-4">
+                        <span class="material-symbols-outlined text-white">chevron_right</span>
+                    </div>
+                    <span
+                        class="font-headline italic font-bold uppercase text-zinc-400 tracking-tighter group-hover:text-white">Ver
+                        Calendario Completo</span>
+                </div>
+            </div>
+        </section>
+        <!-- Teams Section -->
+        <section class="py-32 bg-surface-container-lowest relative" id="teams-section">
+            <div
+                class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary-container to-transparent opacity-20">
+            </div>
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="text-center mb-24">
+                    <span
+                        class="text-zinc-500 font-headline italic font-bold uppercase tracking-[0.5em] text-sm block mb-4">Constructores
+                        2026</span>
+                    <h2
+                        class="text-5xl md:text-7xl font-black italic font-headline text-white uppercase tracking-tighter">
+                        LAS <span class="text-primary-container">ESCUDERÍAS</span></h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8" id="team-list">
+                    <!-- Team Card Template -->
+                    <div
+                        class="group aspect-video bg-surface-container-high flex flex-col items-center justify-center p-8 border-l-4 border-transparent rounded-2xl hover:border-primary-container transition-all cursor-pointer">
+                        <div class="h-20 mb-5 flex items-center justify-center transition-all overflow-hidden">
+                            <img alt="Team Logo Placeholder" class="max-w-full max-h-full object-contain" src="" />
+                        </div>
+                        <div class="w-full h-[1px] bg-zinc-800 mb-4"></div>
+                        <p
+                            class="font-black italic text-zinc-300 group-hover:text-white font-headline text-sm text-center uppercase mb-2">
+                            {{team_name}}</p>
+                        <p class="text-[10px] font-headline font-bold uppercase text-zinc-500 tracking-widest">
+                            {{location}}</p>
+                    </div>
+                    <!-- Repeat Placeholders -->
+                    <div
+                        class="group aspect-video bg-surface-container-high flex flex-col items-center justify-center p-8 border-l-4 border-transparent rounded-2xl hover:border-primary-container transition-all cursor-pointer">
+                        <div class="h-20 mb-5 flex items-center justify-center transition-all overflow-hidden">
+                            <span class="material-symbols-outlined text-4xl text-zinc-600">image</span>
+                        </div>
+                        <div class="w-full h-[1px] bg-zinc-800 mb-4"></div>
+                        <p class="font-black italic text-zinc-300 font-headline text-sm text-center uppercase mb-2">
+                            {{team_name}}</p>
+                        <p class="text-[10px] font-headline font-bold uppercase text-zinc-500 tracking-widest">
+                            {{location}}</p>
+                    </div>
+                    <div
+                        class="group aspect-video bg-surface-container-high flex flex-col items-center justify-center p-8 border-l-4 border-transparent rounded-2xl hover:border-primary-container transition-all cursor-pointer">
+                        <div class="h-20 mb-5 flex items-center justify-center transition-all overflow-hidden">
+                            <span class="material-symbols-outlined text-4xl text-zinc-600">image</span>
+                        </div>
+                        <div class="w-full h-[1px] bg-zinc-800 mb-4"></div>
+                        <p class="font-black italic text-zinc-300 font-headline text-sm text-center uppercase mb-2">
+                            {{team_name}}</p>
+                        <p class="text-[10px] font-headline font-bold uppercase text-zinc-500 tracking-widest">
+                            {{location}}</p>
+                    </div>
+                    <div
+                        class="group aspect-video bg-surface-container-high flex flex-col items-center justify-center p-8 border-l-4 border-transparent rounded-2xl hover:border-primary-container transition-all cursor-pointer">
+                        <div class="h-20 mb-5 flex items-center justify-center transition-all overflow-hidden">
+                            <span class="material-symbols-outlined text-4xl text-zinc-600">image</span>
+                        </div>
+                        <div class="w-full h-[1px] bg-zinc-800 mb-4"></div>
+                        <p class="font-black italic text-zinc-300 font-headline text-sm text-center uppercase mb-2">
+                            {{team_name}}</p>
+                        <p class="text-[10px] font-headline font-bold uppercase text-zinc-500 tracking-widest">
+                            {{location}}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- News Section: Futuras Incorporaciones -->
+        <section class="py-32 bg-background relative overflow-hidden" id="future-era">
+            <div class="absolute inset-0 racing-grid opacity-10 pointer-events-none"></div>
+            <div class="max-w-7xl mx-auto px-8 relative">
+                <div class="mb-16">
+                    <span
+                        class="text-zinc-500 font-headline italic font-bold uppercase tracking-[0.5em] text-sm block mb-4">Tendencias
+                        de Mercado</span>
+                    <h2
+                        class="text-5xl md:text-7xl font-black italic font-headline text-white uppercase tracking-tighter">
+                        NUEVAS <span class="text-primary-container">INCORPORACIONES</span></h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Audi News -->
+                    <div
+                        class="group relative bg-zinc-900/50 border border-white/5 p-12 overflow-hidden transition-all hover:bg-zinc-900">
+                        <div
+                            class="absolute top-0 right-0 w-48 h-48 bg-red-600/5 blur-[80px] group-hover:bg-red-600/10 transition-colors">
+                        </div>
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-red-600 font-headline italic font-black text-6xl tracking-tighter mb-2">AUDI</span>
+                                <span class="text-zinc-500 font-headline uppercase tracking-widest text-xs">Confirmado
+                                    para 2026</span>
+                            </div>
+                        </div>
+                        <div class="h-px w-full bg-gradient-to-r from-white/10 to-transparent mb-8"></div>
+                        <p class="text-zinc-400 font-headline leading-relaxed mb-8 italic-slant">La firma alemana
+                            entrará oficialmente como equipo integral en 2026, adquiriendo las operaciones de Sauber. El
+                            desarrollo de su propia unidad de potencia es el pilar de este ambicioso proyecto.</p>
+                        <div
+                            class="flex items-center gap-2 text-white font-headline italic font-bold uppercase text-sm tracking-tighter group-hover:text-primary-container transition-colors">
+                            Leer análisis del proyecto <span
+                                class="material-symbols-outlined text-sm">trending_flat</span>
+                        </div>
+                    </div>
+                    <!-- Cadillac News -->
+                    <div
+                        class="group relative bg-zinc-900/50 border border-white/5 p-12 overflow-hidden transition-all hover:bg-zinc-900">
+                        <div
+                            class="absolute top-0 right-0 w-48 h-48 bg-blue-600/5 blur-[80px] group-hover:bg-blue-600/10 transition-colors">
+                        </div>
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-white font-headline italic font-black text-5xl tracking-tighter mb-2">CADILLAC</span>
+                                <span class="text-zinc-500 font-headline uppercase tracking-widest text-xs">Acuerdo con
+                                    General Motors</span>
+                            </div>
+                        </div>
+                        <div class="h-px w-full bg-gradient-to-r from-white/10 to-transparent mb-8"></div>
+                        <p class="text-zinc-400 font-headline leading-relaxed mb-8 italic-slant">Tras la aprobación
+                            inicial de la FIA, Cadillac y Andretti avanzan en sus planes para unirse a la parrilla,
+                            trayendo una fuerte presencia americana y un nuevo piloto a la competición.</p>
+                        <div
+                            class="flex items-center gap-2 text-white font-headline italic font-bold uppercase text-sm tracking-tighter group-hover:text-primary-container transition-colors">
+                            Ver detalles de la alianza <span
+                                class="material-symbols-outlined text-sm">trending_flat</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer
+        class="w-full border-t border-white/5 py-12 bg-zinc-950 flex flex-col md:flex-row justify-between items-center px-12 space-y-6 md:space-y-0">
+        <div class="flex flex-col items-center md:items-start gap-4">
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-4">
+                    <img alt="F1 Pulse Logo" class="h-8 w-auto" src="assets/img/logos/web/Logo Dark.png" draggable="false" />
+                </div>
+                <span class="h-4 w-px bg-zinc-800"></span>
+                <p class="font-inter uppercase text-xs tracking-widest text-zinc-500">© 2026 F1 PULSE - TODOS LOS DERECHOS RESERVADOS</p>
+            </div>
+        </div>
+    </footer>
 </body>
+
 </html>
