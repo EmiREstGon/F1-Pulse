@@ -6,6 +6,10 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Space+Grotesk:wght@300;400;700;900&amp;display=swap"
         rel="stylesheet" />
@@ -84,21 +88,7 @@
     <script src="assets/js/app.js"></script>
     <style>
         .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-
-        .italic-slant {
-            font-style: italic;
-            transform: skewX(-5deg);
-        }
-
-        .clip-path-slant {
-            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
-        }
-
-        .racing-grid {
-            background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
-            background-size: 24px 24px;
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
     </style>
 </head>
@@ -109,37 +99,61 @@
         class="fixed top-0 w-full z-50 border-b border-white/10 bg-zinc-950/40 backdrop-blur-xl flex justify-between items-center px-8 py-4 max-w-full mx-auto">
         <div class="flex items-center gap-4">
             <a href="">
-                <img alt="F1 Pulse Logo" class="h-12 w-auto" src="assets/img/logos/web/Logo Dark.png" draggable="false" />
+                <img alt="F1 Pulse Logo" class="h-12 w-auto" src="assets/img/logos/web/Logo Dark.png"
+                    draggable="false" />
             </a>
         </div>
         <div class="hidden md:flex items-center space-x-8">
             <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
-                href="#">Pilotos</a>
+                href="#">Clasificación</a>
+            <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
+                href="#">Calendario</a>
             <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
                 href="#">Escuderías</a>
             <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
-                href="#">Calendario</a>
+                href="#">Pilotos</a>
+            <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
+                href="#">Crea tu fondo</a>
         </div>
     </nav>
     <main class="pt-16">
-        <!-- Hero Section: Dynamic Data Focus -->
+        <!-- HERO SECTION -->
         <section class="relative h-[855px] overflow-hidden bg-surface-container-lowest" id="hero-section">
-            <div class="absolute inset-0 racing-grid opacity-20"></div>
+            <!-- HERO SLIDER -->
+            <div id="hero-slider" class="absolute inset-0 z-0">
+                <img class="hero-slide absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000"
+                    src="assets/img/hero/hero-1.webp" draggable="false" />
+                <img class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+                    src="assets/img/hero/hero-2.webp" draggable="false" />
+                <img class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+                    src="assets/img/hero/hero-3.webp" draggable="false" />
+                <img class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+                    src="assets/img/hero/hero-4.webp" draggable="false" />
+                <img class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+                    src="assets/img/hero/hero-5.webp" draggable="false" />
+                <img class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+                    src="assets/img/hero/hero-6.webp" draggable="false" />
+                <img class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+                    src="assets/img/hero/hero-7.webp" draggable="false" />
+            </div>
+
+            <!-- HERO OVERLAY -->
+            <div class="absolute inset-0 bg-black/25 z-0"></div>
             <div class="relative h-full flex flex-col justify-center px-12 md:px-24">
-                <div
-                    class="absolute left-0 top-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-primary-container to-transparent opacity-30">
-                </div>
                 <div class="max-w-4xl z-10">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="h-1 w-12 bg-primary-container"></div>
-                        <span class="font-headline uppercase tracking-[0.3em] text-primary text-xs font-bold">Datos
-                            Actualizados · Temporada 2026</span>
+                        <span class="font-headline uppercase tracking-[0.3em] text-primary text-xs font-bold">Temporada
+                            2026</span>
                     </div>
                     <h1
                         class="text-6xl md:text-9xl font-black italic font-headline leading-none tracking-tighter mb-8 uppercase text-white drop-shadow-2xl">
                         VIVE LA <span class="text-primary-container">FÓRMULA 1</span> EN UN SOLO LUGAR
                     </h1>
-                    <div class="flex flex-col md:flex-row gap-6 items-start md:items-center">
+                    <div
+                        class="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary-container to-transparent opacity-30">
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-6 items-start md:items-center pt-10">
                         <button
                             class="group relative px-10 py-5 bg-primary-container text-on-primary-container font-headline font-black italic uppercase tracking-tighter text-xl overflow-hidden">
                             <span class="relative z-10">Explorar temporada</span>
@@ -160,39 +174,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Circuit Slider Preview -->
-                <div class="absolute bottom-12 right-12 flex gap-4" id="circuit-highlights">
-                    <div
-                        class="w-32 h-20 bg-zinc-800 relative group cursor-pointer overflow-hidden border border-white/5">
-                        <img alt="F1 Circuit Preview"
-                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all"
-                            src="" />
-                        <div
-                            class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span
-                                class="text-[10px] font-headline font-bold text-white uppercase text-center px-2">{{circuit_name}}</span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 w-full h-1 bg-primary-container"></div>
-                    </div>
-                    <div
-                        class="w-32 h-20 bg-zinc-800 relative group cursor-pointer overflow-hidden border border-white/5">
-                        <img alt="F1 Circuit Preview" class="w-full h-full object-cover grayscale opacity-50" src="" />
-                        <div
-                            class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span
-                                class="text-[10px] font-headline font-bold text-white uppercase text-center px-2">{{circuit_name}}</span>
-                        </div>
-                    </div>
-                    <div
-                        class="w-32 h-20 bg-zinc-800 relative group cursor-pointer overflow-hidden border border-white/5">
-                        <img alt="F1 Circuit Preview" class="w-full h-full object-cover grayscale opacity-50" src="" />
-                        <div
-                            class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span
-                                class="text-[10px] font-headline font-bold text-white uppercase text-center px-2">{{circuit_name}}</span>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div
                 class="absolute inset-0 pointer-events-none bg-gradient-to-t from-background via-transparent to-transparent">
@@ -204,11 +185,12 @@
                 id="circuit-info-block">
                 <div class="flex items-center gap-6">
                     <div class="w-16 h-16 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-4xl text-primary-container">info</span>
+                        <span class="material-symbols-outlined text-4xl text-primary-container"><i
+                                class="fa-solid fa-circle-info"></i></span>
                     </div>
                     <div class="flex flex-col gap-2">
                         <p class="text-white font-headline font-bold italic uppercase text-xl">Información del Circuito
-                            Actual</p>
+                        </p>
                         <p class="text-sm text-zinc-500 uppercase tracking-widest">{{circuit_name}} · {{location}}</p>
                     </div>
                 </div>
@@ -243,64 +225,107 @@
         <!-- Data Dashboard Section -->
         <section class="py-24 bg-background" id="data-dashboard">
             <div class="max-w-7xl mx-auto px-8 mb-12 flex justify-between items-center">
-                <h2 class="text-3xl font-black italic font-headline text-white uppercase">PANEL DE <span
-                        class="text-primary-container">RESULTADOS</span></h2>
+                <h2 class="text-3xl font-black italic font-headline text-white uppercase">
+                    PANEL DE <span class="text-primary-container">RESULTADOS</span>
+                </h2>
             </div>
-            <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Classification Drivers -->
-                <div class="bg-surface-container relative p-8 border-l-2 border-primary-container">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="material-symbols-outlined text-primary-container">emoji_events</span>
-                        <span
-                            class="font-headline uppercase italic font-bold tracking-widest text-zinc-400">Clasificación
-                            de Pilotos</span>
-                    </div>
-                    <div class="space-y-4" id="driver-standings">
-                        <div class="flex justify-between items-center py-2 border-b border-white/5">
-                            <span class="text-white font-bold italic">1. {{driver_name}}</span>
-                            <span class="text-primary-container font-mono">{{points}} PTS</span>
+            <div class="max-w-7xl mx-auto px-8 space-y-6">
+                <!-- Top row -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Classification Drivers -->
+                    <div
+                        class="bg-surface-container relative p-8 border-l-2 border-primary-container rounded-2xl min-h-[360px]">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="material-symbols-outlined text-primary-container">
+                                <i class="fa-solid fa-ranking-star text-white text-2xl"></i>
+                            </span>
+                            <span class="font-headline uppercase italic font-bold tracking-widest text-zinc-400">
+                                Clasificación de Pilotos
+                            </span>
                         </div>
-                        <div class="flex justify-between items-center py-2 border-b border-white/5">
-                            <span class="text-white font-bold italic">2. {{driver_name}}</span>
-                            <span class="text-primary-container font-mono">{{points}} PTS</span>
+                        <div class="space-y-4" id="driver-standings">
+                            <div class="flex justify-between items-center py-2 border-b border-white/5">
+                                <span class="text-white font-bold italic">1. {{driver_name}}</span>
+                                <span class="text-primary-container font-mono">{{points}} PTS</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-white/5">
+                                <span class="text-white font-bold italic">2. {{driver_name}}</span>
+                                <span class="text-primary-container font-mono">{{points}} PTS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Classification Teams -->
+                    <div class="bg-surface-container relative p-8 border-l-2 border-zinc-700 rounded-2xl min-h-[360px]">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="material-symbols-outlined text-zinc-500">
+                                <i class="fa-solid fa-trophy text-primary-container text-2xl"></i>
+                            </span>
+                            <span class="font-headline uppercase italic font-bold tracking-widest text-zinc-400">
+                                Escuderías
+                            </span>
+                        </div>
+                        <div class="space-y-4" id="constructor-standings">
+                            <div class="flex justify-between items-center py-2 border-b border-white/5">
+                                <span class="text-white font-bold italic">{{team_name}}</span>
+                                <span class="text-zinc-300 font-mono">{{points}} PTS</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Classification Teams -->
-                <div class="bg-surface-container relative p-8 border-l-2 border-zinc-700">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="material-symbols-outlined text-zinc-500">factory</span>
-                        <span
-                            class="font-headline uppercase italic font-bold tracking-widest text-zinc-400">Constructores</span>
-                    </div>
-                    <div class="space-y-4" id="constructor-standings">
-                        <div class="flex justify-between items-center py-2 border-b border-white/5">
-                            <span class="text-white font-bold italic">{{team_name}}</span>
-                            <span class="text-zinc-300 font-mono">{{points}} PTS</span>
+                <!-- Bottom row -->
+                <!-- Season Prediction Info -->
+                <div id="season-prediction-card"
+                    class="bg-primary-container/80 p-6 md:p-8 relative overflow-hidden rounded-2xl border border-white/10">
+                    <div class="relative">
+                        <!-- Header -->
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-chart-line text-white text-2xl"></i>
+                                <div>
+                                    <h5 class="text-xl md:text-2xl font-black font-headline text-white italic uppercase tracking-tight">
+                                        Análisis de temporada
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Subtexto -->
+                        <p id="season-prediction-summary" class="text-white/80 text-sm md:text-base font-headline mb-6 leading-relaxed">
+                            Cargando progreso del campeonato...
+                        </p>
+                        <!-- Línea separadora -->
+                        <div class="h-[1px] w-full bg-white/10 mb-6 relative">
+                            <div class="absolute left-0 top-0 h-[1px] w-12 bg-white/40"></div>
+                        </div>
+                        <!-- Grid -->
+                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                            <!-- Pilotos -->
+                            <div class="bg-white/5 p-4 border border-white/5 rounded-2xl">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <i class="fa-solid fa-flag-checkered text-white/80 text-base"></i>
+                                    <p class="text-sm uppercase tracking-[0.2em] text-white/70 font-headline">
+                                        Pilotos
+                                    </p>
+                                </div>
+                                <div id="predicted-driver-podium" class="space-y-3">
+                                    <div class="text-white text-sm italic">Cargando estimación...</div>
+                                </div>
+                            </div>
+                            <!-- Escuderías -->
+                            <div class="bg-white/5 p-4 border border-white/5 rounded-2xl">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <i class="fa-solid fa-screwdriver-wrench text-white/80 text-base"></i>
+                                    <p class="text-sm uppercase tracking-[0.2em] text-white/70 font-headline">
+                                        Escuderías
+                                    </p>
+                                </div>
+                                <div id="predicted-constructor-podium" class="space-y-3">
+                                    <div class="text-white text-sm italic">Cargando estimación...</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Last Session Info -->
-                <div class="bg-primary-container p-8 flex flex-col justify-between relative overflow-hidden">
-                    <div class="z-10">
-                        <p
-                            class="text-on-primary-container/60 font-headline uppercase italic tracking-widest text-xs mb-2">
-                            Última Sesión Disponible</p>
-                        <h5 class="text-2xl font-black font-headline text-white italic tracking-tighter uppercase">
-                            {{race_name}}</h5>
-                        <p class="text-white/80 text-sm font-headline italic mt-2">{{session_type}} - Finalizado</p>
-                    </div>
-                    <div class="z-10 mt-8">
-                        <button
-                            class="bg-white/10 hover:bg-white/20 transition-colors px-4 py-2 text-xs font-headline uppercase font-bold italic tracking-widest">
-                            Ver Tiempos Completos
-                        </button>
-                    </div>
-                    <div class="absolute top-[-20%] right-[-10%] opacity-10">
-                        <span class="text-[120px] font-black italic font-headline leading-none">DATA</span>
-                    </div>
                 </div>
-            </div>
         </section>
         <!-- Calendar Section -->
         <section class="py-24 bg-background relative overflow-hidden" id="season-calendar">
@@ -316,7 +341,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-px bg-white/5" id="circuit-list">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-px bg-white/5 p-2" id="circuit-list">
                 <!-- Dynamic Circuit Card Placeholder -->
                 <div
                     class="bg-surface-container-low group hover:bg-surface-container-high transition-all p-8 relative overflow-hidden circuit-card">
@@ -332,8 +357,9 @@
                     <h3 class="text-2xl font-bold italic font-headline text-white mb-2 uppercase">{{race_name}}</h3>
                     <p class="text-xs text-zinc-500 font-headline uppercase tracking-widest mb-6">{{circuit_name}}</p>
                     <div class="flex items-center gap-4">
-                        <span class="material-symbols-outlined text-primary-container text-sm">calendar_month</span>
-                        <span class="text-xs font-mono text-zinc-300">FECHA A CONFIRMAR</span>
+                        <span class="material-symbols-outlined text-primary-container text-sm"><i
+                                class="fa-solid fa-calendar-days"></i></span>
+                        <span class="text-xs text-zinc-300 pt-1">FECHA A CONFIRMAR</span>
                     </div>
                 </div>
                 <!-- Repeat for visual structure -->
@@ -451,7 +477,7 @@
                 </div>
             </div>
         </section>
-        <!-- News Section: Futuras Incorporaciones -->
+        <!-- New Teams Section -->
         <section class="py-32 bg-background relative overflow-hidden" id="future-era">
             <div class="absolute inset-0 racing-grid opacity-10 pointer-events-none"></div>
             <div class="max-w-7xl mx-auto px-8 relative">
@@ -466,50 +492,53 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <!-- Audi News -->
                     <div
-                        class="group relative bg-zinc-900/50 border border-white/5 p-12 overflow-hidden transition-all hover:bg-zinc-900">
-                        <div
-                            class="absolute top-0 right-0 w-48 h-48 bg-red-600/5 blur-[80px] group-hover:bg-red-600/10 transition-colors">
-                        </div>
-                        <div class="flex justify-between items-start mb-12">
+                        class="group relative bg-zinc-900/50 border border-white/5 p-12 overflow-hidden transform transition-all duration-300 ease-out hover:scale-105 hover:bg-zinc-900 rounded-3xl">
+                        <div class="flex justify-between items-center mb-6">
                             <div class="flex flex-col">
                                 <span
-                                    class="text-red-600 font-headline italic font-black text-6xl tracking-tighter mb-2">AUDI</span>
-                                <span class="text-zinc-500 font-headline uppercase tracking-widest text-xs">Confirmado
-                                    para 2026</span>
+                                    class="text-white font-headline italic font-black text-5xl tracking-tighter mb-2">AUDI</span>
+                                <span class="text-zinc-500 font-headline uppercase tracking-widest text-xs">Nuevo
+                                    proyecto tras Sauber</span>
                             </div>
+
+                            <!-- LOGO -->
+                            <img src="assets/img/logos/brands/Audi.svg" alt="Audi Logo"
+                                class="h-12 opacity-70 group-hover:opacity-100 transition-all duration-300 pointer-events-none"
+                                draggable="false" />
                         </div>
-                        <div class="h-px w-full bg-gradient-to-r from-white/10 to-transparent mb-8"></div>
+                        <div class="h-px w-full bg-gradient-to-r from-primary-container/30 to-transparent mb-6"></div>
                         <p class="text-zinc-400 font-headline leading-relaxed mb-8 italic-slant">La firma alemana
-                            entrará oficialmente como equipo integral en 2026, adquiriendo las operaciones de Sauber. El
-                            desarrollo de su propia unidad de potencia es el pilar de este ambicioso proyecto.</p>
+                            entrará oficialmente en la Fórmula 1 en 2026 tras asumir la estructura de Sauber. El
+                            desarrollo de su propia unidad de potencia será una de las claves de esta nueva etapa.</p>
                         <div
                             class="flex items-center gap-2 text-white font-headline italic font-bold uppercase text-sm tracking-tighter group-hover:text-primary-container transition-colors">
-                            Leer análisis del proyecto <span
-                                class="material-symbols-outlined text-sm">trending_flat</span>
+                            Explorar equipo <span class="material-symbols-outlined text-sm">trending_flat</span>
                         </div>
                     </div>
                     <!-- Cadillac News -->
                     <div
-                        class="group relative bg-zinc-900/50 border border-white/5 p-12 overflow-hidden transition-all hover:bg-zinc-900">
-                        <div
-                            class="absolute top-0 right-0 w-48 h-48 bg-blue-600/5 blur-[80px] group-hover:bg-blue-600/10 transition-colors">
-                        </div>
-                        <div class="flex justify-between items-start mb-12">
+                        class="group relative bg-zinc-900/50 border border-white/5 p-12 overflow-hidden transform transition-all duration-300 ease-out hover:scale-105 hover:bg-zinc-900 rounded-3xl">
+                        <div class="flex justify-between items-center mb-6">
                             <div class="flex flex-col">
                                 <span
                                     class="text-white font-headline italic font-black text-5xl tracking-tighter mb-2">CADILLAC</span>
-                                <span class="text-zinc-500 font-headline uppercase tracking-widest text-xs">Acuerdo con
-                                    General Motors</span>
+                                <span class="text-zinc-500 font-headline uppercase tracking-widest text-xs">Nueva
+                                    incorporación a la parrilla</span>
                             </div>
+
+                            <!-- LOGO -->
+                            <img src="assets/img/logos/brands/Cadillac.svg" alt="Cadillac Logo"
+                                class="h-12 opacity-70 group-hover:opacity-100 transition-all duration-300 pointer-events-none"
+                                draggable="false" />
                         </div>
-                        <div class="h-px w-full bg-gradient-to-r from-white/10 to-transparent mb-8"></div>
-                        <p class="text-zinc-400 font-headline leading-relaxed mb-8 italic-slant">Tras la aprobación
-                            inicial de la FIA, Cadillac y Andretti avanzan en sus planes para unirse a la parrilla,
-                            trayendo una fuerte presencia americana y un nuevo piloto a la competición.</p>
+                        <div class="h-px w-full bg-gradient-to-r from-primary-container/30 to-transparent mb-6"></div>
+                        <p class="text-zinc-400 font-headline leading-relaxed mb-8 italic-slant">Cadillac se incorporará
+                            como nuevo equipo, siendo el 11º en la parrilla, reforzando la presencia estadounidense en
+                            la competición y
+                            abriendo una nueva etapa dentro del campeonato.</p>
                         <div
                             class="flex items-center gap-2 text-white font-headline italic font-bold uppercase text-sm tracking-tighter group-hover:text-primary-container transition-colors">
-                            Ver detalles de la alianza <span
-                                class="material-symbols-outlined text-sm">trending_flat</span>
+                            Explorar equipo <span class="material-symbols-outlined text-sm">trending_flat</span>
                         </div>
                     </div>
                 </div>
@@ -521,11 +550,27 @@
         class="w-full border-t border-white/5 py-12 bg-zinc-950 flex flex-col md:flex-row justify-between items-center px-12 space-y-6 md:space-y-0">
         <div class="flex flex-col items-center md:items-start gap-4">
             <div class="flex items-center gap-3">
-                <div class="flex items-center gap-4">
-                    <img alt="F1 Pulse Logo" class="h-8 w-auto" src="assets/img/logos/web/Logo Dark.png" draggable="false" />
-                </div>
+                <img alt="F1 Pulse Logo" class="h-8 w-auto" src="assets/img/logos/web/Logo Dark.png"
+                    draggable="false" />
                 <span class="h-4 w-px bg-zinc-800"></span>
-                <p class="font-inter uppercase text-xs tracking-widest text-zinc-500">© 2026 F1 PULSE - TODOS LOS DERECHOS RESERVADOS</p>
+                <!-- Licencia -->
+                <div class="text-xs text-zinc-500 text-center md:text-left leading-relaxed">
+                    <span>F1 Pulse</span> © 2026 de
+                    <span class="text-zinc-400">Emilio Rafael Estévez González</span> está bajo licencia
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="underline hover:text-white"
+                        target="_blank">
+                        CC BY-NC-SA 4.0</a>
+                    <span class="inline-flex items-center ml-1">
+                        <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" class="h-4 ml-1"
+                            draggable="false" />
+                        <img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" class="h-4 ml-1"
+                            draggable="false" />
+                        <img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" class="h-4 ml-1"
+                            draggable="false" />
+                        <img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" class="h-4 ml-1"
+                            draggable="false" />
+                    </span>
+                </div>
             </div>
         </div>
     </footer>

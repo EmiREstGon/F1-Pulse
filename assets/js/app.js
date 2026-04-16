@@ -1,17 +1,120 @@
 const API_BASE = "https://api.openf1.org/v1";
+const CURRENT_YEAR = 2026;
+const regionNames = new Intl.DisplayNames(['es'], { type: 'region' });
+
+const countryToISO = {
+  "Spain": "ES",
+  "Italy": "IT",
+  "United Kingdom": "GB",
+  "USA": "US",
+  "United States": "US",
+  "France": "FR",
+  "Monaco": "MC",
+  "Germany": "DE",
+  "Netherlands": "NL",
+  "Austria": "AT",
+  "Belgium": "BE",
+  "Hungary": "HU",
+  "Canada": "CA",
+  "Mexico": "MX",
+  "Brazil": "BR",
+  "Australia": "AU",
+  "Japan": "JP",
+  "China": "CN",
+  "Singapore": "SG",
+  "Qatar": "QA",
+  "UAE": "AE",
+  "Abu Dhabi": "AE",
+  "Saudi Arabia": "SA",
+  "Bahrain": "BH",
+  "Azerbaijan": "AZ"
+};
+
+const fallbackDriverStandings = [
+  { position_current: 1, full_name: "Kimi Antonelli", points_current: 72 },
+  { position_current: 2, full_name: "George Russell", points_current: 63 },
+  { position_current: 3, full_name: "Charles Leclerc", points_current: 49 },
+  { position_current: 4, full_name: "Lewis Hamilton", points_current: 41 },
+  { position_current: 5, full_name: "Lando Norris", points_current: 25 },
+  { position_current: 6, full_name: "Oscar Piastri", points_current: 21 },
+  { position_current: 7, full_name: "Oliver Bearman", points_current: 17 },
+  { position_current: 8, full_name: "Pierre Gasly", points_current: 15 },
+  { position_current: 9, full_name: "Max Verstappen", points_current: 12 },
+  { position_current: 10, full_name: "Liam Lawson", points_current: 10 },
+  { position_current: 11, full_name: "Arvid Lindblad", points_current: 4 },
+  { position_current: 12, full_name: "Isack Hadjar", points_current: 4 },
+  { position_current: 13, full_name: "Gabriel Bortoleto", points_current: 2 },
+  { position_current: 14, full_name: "Carlos Sainz", points_current: 2 },
+  { position_current: 15, full_name: "Esteban Ocon", points_current: 1 },
+  { position_current: 16, full_name: "Franco Colapinto", points_current: 1 },
+  { position_current: 17, full_name: "Nico Hulkenberg", points_current: 0 },
+  { position_current: 18, full_name: "Alexander Albon", points_current: 0 },
+  { position_current: 19, full_name: "Valtteri Bottas", points_current: 0 },
+  { position_current: 20, full_name: "Sergio Perez", points_current: 0 },
+  { position_current: 21, full_name: "Fernando Alonso", points_current: 0 },
+  { position_current: 22, full_name: "Lance Stroll", points_current: 0 }
+];
+
+const fallbackConstructorStandings = [
+  { position_current: 1, team_name: "Mercedes", points_current: 135 },
+  { position_current: 2, team_name: "Ferrari", points_current: 90 },
+  { position_current: 3, team_name: "McLaren", points_current: 46 },
+  { position_current: 4, team_name: "Haas F1 Team", points_current: 18 },
+  { position_current: 5, team_name: "Alpine", points_current: 16 },
+  { position_current: 6, team_name: "Red Bull Racing", points_current: 16 },
+  { position_current: 7, team_name: "Racing Bulls", points_current: 14 },
+  { position_current: 8, team_name: "Audi", points_current: 2 },
+  { position_current: 9, team_name: "Williams", points_current: 2 },
+  { position_current: 10, team_name: "Cadillac", points_current: 0 },
+  { position_current: 11, team_name: "Aston Martin", points_current: 0 }
+];
 
 const teamLogos = {
-  "McLaren": "assets/img/logos/teams/mclaren.png",
-  "Ferrari": "assets/img/logos/teams/ferrari.svg",
-  "Mercedes": "assets/img/logos/teams/mercedes.svg",
-  "Red Bull Racing": "assets/img/logos/teams/red-bull.png",
-  "Aston Martin": "assets/img/logos/teams/aston-martin.png",
-  "Alpine": "assets/img/logos/teams/alpine.png",
-  "Williams": "assets/img/logos/teams/williams.png",
-  "RB": "assets/img/logos/teams/rb.png",
-  "Cadillac": "assets/img/logos/teams/cadillac.png",
-  "Haas F1 Team": "assets/img/logos/teams/haas.png",
-  "Audi": "assets/img/logos/teams/audi.png"
+  "McLaren": "assets/img/logos/brands/mclaren.svg",
+  "Red Bull Racing": "assets/img/logos/brands/red-bull-racing.svg",
+  "Audi": "assets/img/logos/brands/audi.svg",
+  "Ferrari": "assets/img/logos/brands/ferrari.svg",
+  "Mercedes": "assets/img/logos/brands/mercedes.svg",
+  "Aston Martin": "assets/img/logos/brands/aston-martin.svg",
+  "Alpine": "assets/img/logos/brands/alpine.svg",
+  "Williams": "assets/img/logos/brands/williams.svg",
+  "RB": "assets/img/logos/brands/racing-bulls.svg",
+  "Racing Bulls": "assets/img/logos/brands/racing-bulls.svg",
+  "Cadillac": "assets/img/logos/brands/cadillac.svg",
+  "Haas": "assets/img/logos/brands/haas.svg",
+  "Haas F1 Team": "assets/img/logos/brands/haas.svg"
+};
+
+const teamColors = {
+  "McLaren": "#FF8000",
+  "Red Bull Racing": "#3671C6",
+  "Audi": "#FF2D00",
+  "Ferrari": "#E8002D",
+  "Mercedes": "#27F4D2",
+  "Aston Martin": "#229971",
+  "Alpine": "#00A1E8",
+  "Williams": "#1868DB",
+  "RB": "#6692FF",
+  "Racing Bulls": "#6692FF",
+  "Cadillac": "#AAAAAD",
+  "Haas": "#DEE1E2",
+  "Haas F1 Team": "#DEE1E2"
+};
+
+const teamNationality = {
+  "McLaren": "United Kingdom",
+  "Red Bull Racing": "Austria",
+  "Audi": "Germany",
+  "Ferrari": "Italy",
+  "Mercedes": "Germany",
+  "Aston Martin": "United Kingdom",
+  "Alpine": "France",
+  "Williams": "United Kingdom",
+  "RB": "Italy",
+  "Racing Bulls": "Italy",
+  "Cadillac": "United States",
+  "Haas": "United States",
+  "Haas F1 Team": "United States"
 };
 
 const circuitExtraInfo = {
@@ -68,18 +171,118 @@ const circuitAliases = {
   "Yas Marina Circuit": "Abu Dhabi", "Abu Dhabi": "Abu Dhabi"
 };
 
-const circuitImages = [
-  "assets/img/circuits/circuit-1.jpg",
-  "assets/img/circuits/circuit-2.jpg",
-  "assets/img/circuits/circuit-3.jpg"
-];
+const grandPrixTranslations = {
+  "Australian Grand Prix": "Gran Premio de Australia",
+  "Chinese Grand Prix": "Gran Premio de China",
+  "Japanese Grand Prix": "Gran Premio de Japón",
+  "Bahrain Grand Prix": "Gran Premio de Baréin",
+  "Saudi Arabian Grand Prix": "Gran Premio de Arabia Saudí",
+  "Miami Grand Prix": "Gran Premio de Miami",
+  "Canadian Grand Prix": "Gran Premio de Canadá",
+  "Monaco Grand Prix": "Gran Premio de Mónaco",
+  "Spanish Grand Prix": "Gran Premio de España",
+  "Austrian Grand Prix": "Gran Premio de Austria",
+  "British Grand Prix": "Gran Premio de Gran Bretaña",
+  "Belgian Grand Prix": "Gran Premio de Bélgica",
+  "Hungarian Grand Prix": "Gran Premio de Hungría",
+  "Dutch Grand Prix": "Gran Premio de los Países Bajos",
+  "Italian Grand Prix": "Gran Premio de Italia",
+  "Madrid Grand Prix": "Gran Premio de Madrid",
+  "Azerbaijan Grand Prix": "Gran Premio de Azerbaiyán",
+  "Singapore Grand Prix": "Gran Premio de Singapur",
+  "United States Grand Prix": "Gran Premio de Estados Unidos",
+  "Mexico City Grand Prix": "Gran Premio de Ciudad de México",
+  "São Paulo Grand Prix": "Gran Premio de São Paulo",
+  "Las Vegas Grand Prix": "Gran Premio de Las Vegas",
+  "Qatar Grand Prix": "Gran Premio de Qatar",
+  "Abu Dhabi Grand Prix": "Gran Premio de Abu Dabi"
+};
 
-async function fetchJSON(url) {
-  const res = await fetch(url);
-  if (!res.ok) {
+const circuitTranslations = {
+  "Melbourne": "Albert Park",
+  "Shanghai": "Shanghái",
+  "Suzuka": "Suzuka",
+  "Bahrain": "Sakhir",
+  "Jeddah": "Yeda",
+  "Miami": "Miami",
+  "Montreal": "Montreal",
+  "Monaco": "Mónaco",
+  "Barcelona": "Barcelona-Cataluña",
+  "Catalunya": "Barcelona-Cataluña",
+  "Barcelona-Catalunya": "Barcelona-Cataluña",
+  "Spielberg": "Spielberg",
+  "Silverstone": "Silverstone",
+  "Spa": "Spa-Francorchamps",
+  "Budapest": "Hungaroring",
+  "Zandvoort": "Zandvoort",
+  "Monza": "Monza",
+  "Madrid": "Madring",
+  "Baku": "Bakú",
+  "Singapore": "Marina Bay",
+  "Austin": "Austin",
+  "Mexico City": "Ciudad de México",
+  "São Paulo": "Interlagos",
+  "Las Vegas": "Las Vegas",
+  "Qatar": "Losail",
+  "Abu Dhabi": "Yas Marina"
+};
+
+const circuitTrackImages = {
+  "Melbourne": "assets/img/circuits/tracks/albert-park.svg",
+  "Shanghai": "assets/img/circuits/tracks/shanghai.svg",
+  "Suzuka": "assets/img/circuits/tracks/suzuka.svg",
+  "Bahrain": "assets/img/circuits/tracks/sakhir.svg",
+  "Jeddah": "assets/img/circuits/tracks/jeddah.svg",
+  "Miami": "assets/img/circuits/tracks/miami.svg",
+  "Montreal": "assets/img/circuits/tracks/montreal.svg",
+  "Monaco": "assets/img/circuits/tracks/monte-carlo.svg",
+  "Barcelona": "assets/img/circuits/tracks/catalunya.svg",
+  "Spielberg": "assets/img/circuits/tracks/spielberg.svg",
+  "Silverstone": "assets/img/circuits/tracks/silverstone.svg",
+  "Spa": "assets/img/circuits/tracks/spa-francorchamps.svg",
+  "Budapest": "assets/img/circuits/tracks/hungaroring.svg",
+  "Zandvoort": "assets/img/circuits/tracks/zandvoort.svg",
+  "Monza": "assets/img/circuits/tracks/monza.svg",
+  "Madrid": "assets/img/circuits/tracks/madring.svg",
+  "Baku": "assets/img/circuits/tracks/baku.svg",
+  "Singapore": "assets/img/circuits/tracks/singapore.svg",
+  "Austin": "assets/img/circuits/tracks/austin.svg",
+  "Mexico City": "assets/img/circuits/tracks/mexico-city.svg",
+  "São Paulo": "assets/img/circuits/tracks/interlagos.svg",
+  "Las Vegas": "assets/img/circuits/tracks/las-vegas.svg",
+  "Qatar": "assets/img/circuits/tracks/lusail.svg",
+  "Abu Dhabi": "assets/img/circuits/tracks/yas-marina.svg"
+};
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function fetchJSON(url, options = {}) {
+  const {
+    retries = 3,
+    retryDelay = 1200
+  } = options;
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const res = await fetch(url);
+
+    if (res.ok) {
+      return res.json();
+    }
+
+    if (res.status === 429 && attempt < retries) {
+      const retryAfter = Number(res.headers.get("Retry-After"));
+      const waitMs = Number.isFinite(retryAfter) && retryAfter > 0
+        ? retryAfter * 1000
+        : retryDelay * (attempt + 1);
+
+      await sleep(waitMs);
+      continue;
+    }
+
     throw new Error(`Error ${res.status}: ${url}`);
   }
-  return res.json();
 }
 
 function formatDate(dateStr) {
@@ -91,18 +294,97 @@ function formatDate(dateStr) {
   }).format(new Date(dateStr));
 }
 
-function slugSafe(text) {
-  return (text || "").trim().toLowerCase();
+function normalizeTeamName(name) {
+  return name
+    .toLowerCase()
+    .replace("f1 team", "")
+    .replace("team", "")
+    .trim();
 }
 
 function getTeamLogo(teamName) {
-  const normalized = slugSafe(teamName);
+  const normalized = normalizeTeamName(teamName);
 
   for (const [key, value] of Object.entries(teamLogos)) {
-    if (slugSafe(key) === normalized) return value;
+    if (normalizeTeamName(key) === normalized) {
+      return value;
+    }
   }
 
-  return "assets/img/teams/default-team.png";
+  return "assets/img/logos/brands/default.svg";   // fallback imagen por defecto si falla
+}
+
+function getTeamColor(teamName) {
+  const normalized = normalizeTeamName(teamName);
+
+  for (const [key, value] of Object.entries(teamColors)) {
+    if (normalizeTeamName(key) === normalized) {
+      return value;
+    }
+  }
+
+  return "#1f2937"; // fallback color oscuro si falla
+}
+
+function getTeamCountry(teamName) {
+  const normalized = normalizeTeamName(teamName);
+
+  for (const [key, value] of Object.entries(teamNationality)) {
+    if (normalizeTeamName(key) === normalized) {
+      return value;
+    }
+  }
+
+  return "";
+}
+
+function getCountryData(input) {
+  let countryName = "";
+
+  if (typeof input === "string") {
+    countryName = input;
+  } else if (input && typeof input === "object") {
+    countryName =
+      input.country_name ||
+      input.country ||
+      input.nationality ||
+      "";
+  }
+
+  if (!countryName) {
+    return {
+      name: "",
+      nameES: "",
+      iso: "",
+      flagUrl: ""
+    };
+  }
+
+  const iso = countryToISO[countryName] || "";
+  const nameES = iso ? (regionNames.of(iso) || countryName) : countryName;
+  const flagUrl = iso ? `https://flagicons.lipis.dev/flags/4x3/${iso.toLowerCase()}.svg` : "";
+
+  return {
+    name: countryName,
+    nameES,
+    iso,
+    flagUrl
+  };
+}
+
+function getTeamCountryCode(teamName) {
+  const country = getTeamCountry(teamName);
+  return getCountryData(country).iso;
+}
+
+function getTeamCountryNameES(teamName) {
+  const country = getTeamCountry(teamName);
+  return getCountryData(country).nameES;
+}
+
+function getTeamFlagUrl(teamName) {
+  const country = getTeamCountry(teamName);
+  return getCountryData(country).flagUrl;
 }
 
 function getNextMeeting(meetings) {
@@ -115,6 +397,22 @@ function getNextMeeting(meetings) {
   if (futureMeetings.length) return futureMeetings[0];
 
   return [...meetings].sort((a, b) => new Date(b.date_start) - new Date(a.date_start))[0];
+}
+
+function getMeetingNameES(meeting) {
+  const meetingName = meeting?.meeting_name || meeting?.meeting_official_name || "";
+  return grandPrixTranslations[meetingName] || meetingName || "Gran Premio";
+}
+
+function getCircuitNameES(meeting) {
+  const rawCircuit =
+    meeting?.circuit_short_name ||
+    meeting?.location ||
+    "";
+
+  const canonical = circuitAliases[rawCircuit] || rawCircuit;
+
+  return circuitTranslations[canonical] || rawCircuit || "Circuito";
 }
 
 function getCircuitExtra(meeting) {
@@ -145,203 +443,77 @@ function getCircuitExtra(meeting) {
   };
 }
 
+function getCircuitTrackImage(meeting, index = 0) {
+  const candidates = [
+    meeting?.circuit_short_name,
+    meeting?.location,
+    meeting?.meeting_name?.replace(" Grand Prix", "").trim()
+  ].filter(Boolean);
+
+  for (const candidate of candidates) {
+    const canonical = circuitAliases[candidate] || candidate;
+    if (circuitTrackImages[canonical]) {
+      return circuitTrackImages[canonical];
+    }
+  }
+
+  return meeting?.circuit_image || circuitImages[index % circuitImages.length];
+}
+
 function setNextGp(meeting) {
   const nameEl = document.getElementById("next-gp-name");
   const dateEl = document.getElementById("next-gp-date");
 
   if (!nameEl || !dateEl || !meeting) return;
 
-  nameEl.textContent = `${meeting.meeting_name || meeting.meeting_official_name || "Gran Premio"} · ${meeting.country_name || ""}`;
-  dateEl.textContent = formatDate(meeting.date_start);
-}
+  const country = getCountryData(meeting);
 
-function renderCircuitHighlights(meetings) {
-  const container = document.getElementById("circuit-highlights");
-  if (!container || !meetings?.length) return;
-
-  const topMeetings = meetings.slice(0, 3);
-
-  container.innerHTML = topMeetings.map((meeting, index) => `
-    <div class="w-32 h-20 bg-zinc-800 relative group cursor-pointer overflow-hidden border border-white/5">
-      <img
-        alt="${meeting.circuit_short_name || "Circuito"}"
-        class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all ${index === 0 ? "" : "opacity-50"}"
-        src="${circuitImages[index % circuitImages.length]}"
-        draggable="false"
-      />
-      <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-        <span class="text-[10px] font-headline font-bold text-white uppercase text-center px-2">
-          ${meeting.circuit_short_name || meeting.location || "Circuito"}
-        </span>
-      </div>
-      ${index === 0 ? '<div class="absolute bottom-0 left-0 w-full h-1 bg-primary-container"></div>' : ""}
-    </div>
-  `).join("");
-}
-
-function renderCalendar(meetings) {
-  const container = document.getElementById("circuit-list");
-  if (!container || !meetings?.length) return;
-
-  const topMeetings = meetings.slice(0, 7);
-
-  const cards = topMeetings.map((meeting, index) => `
-    <div class="bg-surface-container-low group hover:bg-surface-container-high transition-all p-8 relative overflow-hidden">
-      <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 group-hover:text-primary-container transition-all">
-        <span class="text-4xl font-black italic font-headline">${String(index + 1).padStart(2, "0")}</span>
-      </div>
-      <div class="flex items-center gap-2 mb-8">
-        <div class="w-6 h-4 bg-zinc-700"></div>
-        <span class="text-[10px] font-headline uppercase tracking-[0.2em] text-zinc-400">
-          ${meeting.country_name || "País"}
-        </span>
-      </div>
-      <h3 class="text-2xl font-bold italic font-headline text-white mb-2 uppercase">
-        ${meeting.meeting_name || "Gran Premio"}
-      </h3>
-      <p class="text-xs text-zinc-500 font-headline uppercase tracking-widest mb-6">
-        ${meeting.circuit_short_name || meeting.location || "Circuito"}
-      </p>
-      <div class="flex items-center gap-4">
-        <span class="material-symbols-outlined text-primary-container text-sm">calendar_month</span>
-        <span class="text-xs font-mono text-zinc-300">${formatDate(meeting.date_start)}</span>
-      </div>
-    </div>
-  `).join("");
-
-  const viewAll = `
-    <div class="bg-surface-container-low flex flex-col items-center justify-center p-8 group cursor-pointer">
-      <div class="w-12 h-12 rounded-full border border-zinc-700 flex items-center justify-center group-hover:bg-primary-container group-hover:border-primary-container transition-all mb-4">
-        <span class="material-symbols-outlined text-white">chevron_right</span>
-      </div>
-      <span class="font-headline italic font-bold uppercase text-zinc-400 tracking-tighter group-hover:text-white">
-        Ver Calendario Completo
+  nameEl.innerHTML = `
+    <div class="flex items-center gap-2">
+      ${country.flagUrl ? `
+        <img 
+          src="${country.flagUrl}" 
+          alt="${country.nameES || country.name}" 
+          class="w-5 h-4 object-cover rounded-sm"
+          draggable="false"
+        />
+      ` : ""}
+      <span>
+        ${getMeetingNameES(meeting)} · ${getCircuitNameES(meeting)}
       </span>
     </div>
   `;
 
-  container.innerHTML = cards + viewAll;
-}
-
-function renderTeams(drivers) {
-  const container = document.getElementById("team-list");
-  if (!container || !drivers?.length) return;
-
-  const uniqueTeams = new Map();
-
-  drivers.forEach(driver => {
-    if (driver.team_name && !uniqueTeams.has(driver.team_name)) {
-      uniqueTeams.set(driver.team_name, driver);
-    }
-  });
-
-  const teams = [...uniqueTeams.values()].slice(0, 10);
-
-  container.innerHTML = teams.map(team => `
-    <div class="group aspect-video bg-surface-container-high flex flex-col items-center justify-center p-8 border-l-4 border-transparent rounded-2xl hover:border-primary-container transition-all cursor-pointer">
-      <div class="h-20 mb-5 flex items-center justify-center transition-all overflow-hidden">
-        <img
-          alt="${team.team_name}"
-          class="max-w-full max-h-full object-contain"
-          draggable="false"
-          <!-- src="${getTeamLogo(team.team_name)}" -->
-          <!-- onerror="this.src='assets/img/teams/default-team.png'" -->
-        />
-      </div>
-      <div class="w-full h-[1px] bg-zinc-800 mb-4"></div>
-      <p class="font-black italic text-zinc-300 group-hover:text-white font-headline text-sm text-center uppercase mb-2">
-        ${team.team_name}
-      </p>
-      <p class="text-[10px] font-headline font-bold uppercase text-zinc-500 tracking-widest">
-        ${team.country_code || ""}
-      </p>
-    </div>
-  `).join("");
-}
-
-function renderDriverStandings(rows, drivers = []) {
-  const container = document.getElementById("driver-standings");
-  if (!container) return;
-
-  if (!rows?.length) {
-    container.innerHTML = `<p class="text-zinc-400 text-sm">No se han podido cargar los datos.</p>`;
-    return;
-  }
-
-  const driversMap = new Map(
-    drivers.map(driver => [Number(driver.driver_number), driver])
-  );
-
-  const top = rows
-    .sort((a, b) => a.position_current - b.position_current)
-    .slice(0, 5);
-
-  container.innerHTML = top.map(row => {
-    const driver = driversMap.get(Number(row.driver_number));
-    const first_name = driver?.first_name || `Piloto #${row.driver_number}`;
-    const last_name = driver?.last_name || "";
-
-    return `
-      <div class="flex justify-between items-center py-2 border-b border-white/5">
-        <span class="text-white font-bold italic">${row.position_current}. ${first_name} ${last_name}</span>
-        <span class="text-primary-container font-mono">${row.points_current} PTS</span>
-      </div>
-    `;
-  }).join("");
-}
-
-function renderConstructorStandings(rows) {
-  const container = document.getElementById("constructor-standings");
-  if (!container) return;
-
-  if (!rows?.length) {
-    container.innerHTML = `<p class="text-zinc-400 text-sm">No se han podido cargar los datos.</p>`;
-    return;
-  }
-
-  const top = rows
-    .sort((a, b) => a.position_current - b.position_current)
-    .slice(0, 5);
-
-  container.innerHTML = top.map(row => `
-    <div class="flex justify-between items-center py-2 border-b border-white/5">
-      <span class="text-white font-bold italic">${row.team_name}</span>
-      <span class="text-zinc-300 font-mono">${row.points_current} PTS</span>
-    </div>
-  `).join("");
-}
-
-function renderLastSession(session) {
-  if (!session) return;
-
-  const title = document.querySelector("#data-dashboard .bg-primary-container h5");
-  const subtitle = document.querySelector("#data-dashboard .bg-primary-container p.text-white\\/80");
-
-  if (title) {
-    title.textContent = session.meeting_name || session.session_name || "Sesión reciente";
-  }
-
-  if (subtitle) {
-    subtitle.textContent = `${session.session_name || "Sesión"} · ${formatDate(session.date_start)}`;
-  }
+  dateEl.textContent = formatDate(meeting.date_start);
 }
 
 function renderCircuitInfo(meeting) {
   const block = document.getElementById("circuit-info-block");
   if (!block || !meeting) return;
 
-  const circuitName = meeting.circuit_short_name || meeting.location || "Circuito";
-  const location = `${meeting.location || ""}${meeting.country_name ? " · " + meeting.country_name : ""}`;
+  const country = getCountryData(meeting);
   const { data: extra } = getCircuitExtra(meeting);
 
   block.innerHTML = `
     <div class="flex items-center gap-6">
       <div class="w-16 h-16 flex items-center justify-center">
-        <span class="material-symbols-outlined text-4xl text-primary-container">info</span>
+        <span class="material-symbols-outlined text-4xl text-primary-container"><i class="fa-solid fa-circle-info"></i></span>
       </div>
       <div class="flex flex-col gap-2">
-        <p class="text-white font-headline font-bold italic uppercase text-xl">Información del Circuito Actual</p>
-        <p class="text-sm text-zinc-500 uppercase tracking-widest">${circuitName} · ${location}</p>
+        <p class="text-white font-headline font-bold italic uppercase text-xl">Información del Circuito</p>
+        <div class="flex items-center gap-2">
+          ${country.flagUrl ? `
+            <img 
+              src="${country.flagUrl}" 
+              alt="${country.nameES || country.name}" 
+              class="w-6 h-4 object-cover rounded-sm"
+              draggable="false"
+            />
+          ` : ""}
+          <span class="text-sm text-zinc-500 uppercase tracking-widest">
+            ${country.nameES || "País"} · ${getCircuitNameES(meeting)}
+          </span>
+        </div>
       </div>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-6 gap-12">
@@ -373,36 +545,498 @@ function renderCircuitInfo(meeting) {
   `;
 }
 
+function renderCalendar(meetings) {
+  const container = document.getElementById("circuit-list");
+  if (!container || !meetings?.length) return;
+
+  const now = new Date();
+
+  const upcomingMeetings = meetings
+    .filter(meeting => {
+      if (!meeting.date_start) return false;
+      return new Date(meeting.date_start) >= now;
+    })
+    .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
+    .slice(0, 7);
+
+  if (!upcomingMeetings.length) {
+    container.innerHTML = `
+      <div class="md:col-span-4 bg-surface-container-low p-8 text-center">
+        <p class="text-zinc-400 font-headline uppercase tracking-widest text-sm">
+          No hay próximas carreras disponibles
+        </p>
+      </div>
+    `;
+    return;
+  }
+
+  const cards = upcomingMeetings.map((meeting, index) => {
+    const bgImage = getCircuitTrackImage(meeting, index);
+    const country = getCountryData(meeting);
+
+    return `
+    <div class="relative overflow-hidden rounded-2xl group m-2 min-h-[230px] bg-surface-container-low cursor-pointer">
+      <div 
+        class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-50 scale-100 group-hover:scale-105 group-hover:opacity-80 transition-all duration-300"
+        style="background-image: url('${bgImage}')"
+      ></div>
+
+      <div class="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-all"></div>
+
+      <div class="relative p-8 z-10">
+        <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 text-primary-container transition-all">
+          <span class="text-4xl font-black italic font-headline">
+            ${String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2 mb-8">
+          ${country.flagUrl ? `
+            <img 
+              src="${country.flagUrl}" 
+              alt="${country.nameES || country.name}" 
+              class="w-6 h-4 object-cover rounded-sm"
+              draggable="false"
+            />
+          ` : ""}
+          <span class="text-[10px] font-headline uppercase tracking-[0.2em] text-zinc-300">
+            ${country.nameES || "País"}
+          </span>
+        </div>
+
+        <h3 class="text-2xl font-bold italic font-headline text-white mb-2 uppercase">
+          ${getMeetingNameES(meeting)}
+        </h3>
+
+        <p class="text-xs text-zinc-300 font-headline uppercase tracking-widest mb-6">
+          ${getCircuitNameES(meeting)}
+        </p>
+
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-primary-container text-sm"><i class="fa-solid fa-calendar-days"></i></span>
+          <span class="text-xs text-zinc-200 pt-1">${formatDate(meeting.date_start)}</span>
+        </div>
+      </div>
+    </div>
+  `;
+  }).join("");
+
+  const viewAll = `
+    <div class="bg-surface-container-low flex flex-col items-center justify-center p-8 group cursor-pointer rounded-2xl m-2 min-h-[230px]">
+      <div class="w-12 h-12 rounded-full border border-zinc-700 flex items-center justify-center group-hover:bg-primary-container group-hover:border-primary-container transition-all mb-4">
+        <span class="material-symbols-outlined text-white">chevron_right</span>
+      </div>
+      <span class="font-headline italic font-bold uppercase text-zinc-400 tracking-tighter group-hover:text-white">
+        Ver Calendario Completo
+      </span>
+    </div>
+  `;
+
+  container.innerHTML = cards + viewAll;
+}
+
+function renderTeams(drivers) {
+  const container = document.getElementById("team-list");
+  if (!container || !drivers?.length) return;
+
+  const uniqueTeams = new Map();
+
+  drivers.forEach(driver => {
+    if (driver.team_name && !uniqueTeams.has(driver.team_name)) {
+      uniqueTeams.set(driver.team_name, driver);
+    }
+  });
+
+  const teams = [...uniqueTeams.values()].slice(0, 11);
+
+  container.innerHTML = teams.map(team => {
+    const color = typeof getTeamColor === "function"
+      ? getTeamColor(team.team_name)
+      : "linear-gradient(135deg, rgba(211,20,17,0.35), rgba(255,255,255,0.05))";
+
+    const teamCountry = getCountryData(getTeamCountry(team.team_name));
+
+    return `
+      <div 
+        class="group aspect-square max-w-[240px] relative flex flex-col items-center justify-center px-8 py-4 rounded-2xl transform transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-1 cursor-pointer overflow-hidden"
+      >
+        <div 
+          class="absolute inset-0 opacity-70 group-hover:opacity-80 transition-all"
+          style="background:${color}"
+        ></div>
+
+        <div class="relative z-10 w-full flex flex-col items-center">
+          <div class="h-20 w-full mb-5 flex items-center justify-center overflow-hidden">
+            <img
+              alt="${team.team_name}"
+              class="h-full max-w-[120px] object-contain"
+              draggable="false"
+              src="${getTeamLogo(team.team_name)}"
+              onerror="this.src='assets/img/logos/brands/default.svg'"
+            />
+          </div>
+
+          <div class="w-full h-[1px] bg-white/10 mb-6"></div>
+
+          <p class="font-black italic text-white font-headline text-lg text-center uppercase mb-3">
+            ${team.team_name}
+          </p>
+
+          <p class="text-xs font-headline font-bold uppercase text-white/80 tracking-widest flex items-center gap-2 py-2 px-4 rounded-full bg-zinc-900/75">
+            ${teamCountry.nameES || "N/D"}
+            ${teamCountry.flagUrl ? `
+              <img 
+                src="${teamCountry.flagUrl}" 
+                alt="${teamCountry.nameES || teamCountry.name}" 
+                class="h-4 object-cover rounded-sm" 
+                draggable="false" 
+              />
+            ` : ""}
+          </p>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function getLatestRaceSession(sessions) {
+  if (!Array.isArray(sessions)) return null;
+
+  const raceKeywords = ["race", "grand prix"];
+
+  const raceSessions = sessions.filter(session => {
+    const sessionName = (session.session_name || "").toLowerCase();
+    return raceKeywords.some(keyword => sessionName.includes(keyword));
+  });
+
+  if (!raceSessions.length) return null;
+
+  return [...raceSessions].sort(
+    (a, b) => new Date(b.date_start) - new Date(a.date_start)
+  )[0];
+}
+
+function hasStandingsData(rows) {
+  return Array.isArray(rows) && rows.length > 0;
+}
+
+function renderDriverStandings(rows, drivers = []) {
+  const container = document.getElementById("driver-standings");
+  if (!container) return;
+
+  const safeRows = hasStandingsData(rows) ? rows : fallbackDriverStandings;
+
+  const driversMap = new Map(
+    (drivers || []).map(driver => [Number(driver.driver_number), driver])
+  );
+
+  const top = [...safeRows]
+    .filter(row => row.position_current != null)
+    .sort((a, b) => Number(a.position_current) - Number(b.position_current))
+    .slice(0, 5);
+
+  container.innerHTML = `
+    <div class="divide-y divide-white/5">
+      ${top.map(row => {
+    const driver = driversMap.get(Number(row.driver_number));
+    const fullName =
+      row.full_name ||
+      driver?.full_name ||
+      [driver?.first_name, driver?.last_name].filter(Boolean).join(" ") ||
+      `Piloto #${row.driver_number ?? "N/D"}`;
+
+    return `
+          <div class="flex justify-between items-center py-3">
+            <span class="text-white font-bold">
+              ${row.position_current}. ${fullName}
+            </span>
+            <span class="text-primary-container">
+              ${row.points_current ?? 0} PTS
+            </span>
+          </div>
+        `;
+  }).join("")}
+    </div>
+  `;
+}
+
+function renderConstructorStandings(rows) {
+  const container = document.getElementById("constructor-standings");
+  if (!container) return;
+
+  const safeRows = hasStandingsData(rows) ? rows : fallbackConstructorStandings;
+
+  const top = [...safeRows]
+    .filter(row => row.position_current != null)
+    .sort((a, b) => Number(a.position_current) - Number(b.position_current))
+    .slice(0, 5);
+
+  container.innerHTML = `
+    <div class="divide-y divide-white/5">
+      ${top.map(row => `
+        <div class="flex justify-between items-center py-3">
+          <span class="text-white font-bold">
+            ${row.position_current}. ${row.team_name || "Equipo"}
+          </span>
+          <span class="text-zinc-300">
+            ${row.points_current ?? 0} PTS
+          </span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function round1(value) {
+  return Math.round(value * 10) / 10;
+}
+
+function getCompletedMeetingsCount(meetings = []) {
+  const now = new Date();
+
+  return meetings.filter(meeting => {
+    if (!meeting?.date_start) return false;
+    return new Date(meeting.date_start) <= now;
+  }).length;
+}
+
+function getTotalMeetingsCount(meetings = []) {
+  return Array.isArray(meetings) ? meetings.length : 0;
+}
+
+function calculateProjectedPoints(currentPoints, completedMeetings, totalMeetings) {
+  if (!completedMeetings || !totalMeetings) return Number(currentPoints || 0);
+
+  const avgPointsPerRace = Number(currentPoints || 0) / completedMeetings;
+  return avgPointsPerRace * totalMeetings;
+}
+
+function calculateProjectionIndex({
+  position,
+  projectedPoints,
+  leaderProjectedPoints,
+  avgPointsPerRace,
+  leaderAvgPointsPerRace,
+  nextProjectedPoints
+}) {
+  const safePosition = Number(position || 99);
+  const safeProjected = Number(projectedPoints || 0);
+  const safeLeaderProjected = Math.max(Number(leaderProjectedPoints || 0), 1);
+  const safeAvg = Number(avgPointsPerRace || 0);
+  const safeLeaderAvg = Math.max(Number(leaderAvgPointsPerRace || 0), 1);
+  const safeNext = Number(nextProjectedPoints || 0);
+
+  // 1) fuerza relativa respecto al líder
+  const projectedRatio = clamp(safeProjected / safeLeaderProjected, 0, 1);
+
+  // 2) ritmo relativo respecto al líder
+  const avgRatio = clamp(safeAvg / safeLeaderAvg, 0, 1);
+
+  // 3) margen sobre el perseguidor inmediato
+  const gapRatio = clamp((safeProjected - safeNext) / safeLeaderProjected, 0, 0.25) / 0.25;
+
+  // 4) posición actual
+  const positionScore = clamp(1 - ((safePosition - 1) * 0.12), 0.15, 1);
+
+  const score =
+    projectedRatio * 0.45 +
+    avgRatio * 0.25 +
+    gapRatio * 0.20 +
+    positionScore * 0.10;
+
+  return Math.round(clamp(score * 100, 35, 92));
+}
+
+function buildPredictionRows(rows = [], meetings = [], nameField = "full_name") {
+  const safeRows = Array.isArray(rows) ? rows : [];
+  const completedMeetings = Math.max(getCompletedMeetingsCount(meetings), 1);
+  const totalMeetings = Math.max(getTotalMeetingsCount(meetings), completedMeetings);
+
+  const enriched = safeRows
+    .filter(row => row.position_current != null)
+    .map(row => {
+      const currentPoints = Number(row.points_current || 0);
+      const avgPointsPerRace = currentPoints / completedMeetings;
+      const projectedPoints = calculateProjectedPoints(currentPoints, completedMeetings, totalMeetings);
+
+      return {
+        ...row,
+        displayName: row[nameField] || row.team_name || "N/D",
+        currentPoints,
+        avgPointsPerRace,
+        projectedPoints
+      };
+    })
+    .sort((a, b) => b.projectedPoints - a.projectedPoints);
+
+  if (!enriched.length) return [];
+
+  const leaderProjectedPoints = enriched[0].projectedPoints;
+  const leaderAvgPointsPerRace = enriched[0].avgPointsPerRace;
+
+  return enriched.map((row, index, arr) => {
+    const next = arr[index + 1];
+
+    return {
+      ...row,
+      projectionIndex: calculateProjectionIndex({
+        position: row.position_current,
+        projectedPoints: row.projectedPoints,
+        leaderProjectedPoints,
+        avgPointsPerRace: row.avgPointsPerRace,
+        leaderAvgPointsPerRace,
+        nextProjectedPoints: next?.projectedPoints || 0
+      })
+    };
+  }).slice(0, 3);
+}
+
+function renderPredictionList(container, rows, type = "driver") {
+  container.innerHTML = `
+    <div class="divide-y divide-white/15">
+      ${rows.map((row, index) => `
+        <div class="py-4">
+          <div class="flex items-start justify-between gap-3 mb-1">
+            <div>
+              <p class="text-white font-bold leading-tight">
+                ${index + 1}. ${row.displayName}
+              </p>
+              <p class="text-white/75 text-[11px] uppercase tracking-wider mt-1">
+                ${round1(row.avgPointsPerRace)} pts/carrera
+              </p>
+            </div>
+            <div class="text-right">
+              <p class="text-white font-bold text-sm">
+                ${Math.round(row.projectedPoints)} pts
+              </p>
+              <p class="text-white/75 text-[11px] uppercase tracking-wider">
+                ${row.projectionIndex}% de conservar posición
+              </p>
+            </div>
+          </div>
+
+          <div class="w-full h-2 bg-white/15 rounded-full overflow-hidden">
+            <div class="h-full bg-white/85 rounded-full transition-all duration-500" style="width:${row.projectionIndex}%"></div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderSeasonPrediction(driverRows = [], constructorRows = [], meetings = []) {
+  const driverContainer = document.getElementById("predicted-driver-podium");
+  const constructorContainer = document.getElementById("predicted-constructor-podium");
+  const summary = document.getElementById("season-prediction-summary");
+
+  if (!driverContainer || !constructorContainer || !summary) return;
+
+  const safeDrivers = hasStandingsData(driverRows) ? driverRows : fallbackDriverStandings;
+  const safeConstructors = hasStandingsData(constructorRows) ? constructorRows : fallbackConstructorStandings;
+
+  const completedMeetings = getCompletedMeetingsCount(meetings);
+  const totalMeetings = getTotalMeetingsCount(meetings);
+
+  summary.textContent = `Estimación del final de la temporada, basada en ritmo actual y puntos por carrera en ${completedMeetings} de ${totalMeetings} carreras disputadas`;
+
+  const predictedDrivers = buildPredictionRows(safeDrivers, meetings, "full_name");
+  const predictedConstructors = buildPredictionRows(safeConstructors, meetings, "team_name");
+
+  renderPredictionList(driverContainer, predictedDrivers, "driver");
+  renderPredictionList(constructorContainer, predictedConstructors, "constructor");
+}
+
+let interval;
+
+function initHeroSlider() {
+  const slides = document.querySelectorAll(".hero-slide");
+  if (!slides.length) return;
+
+  let current = 0;
+
+  function start() {
+    interval = setInterval(() => {
+      slides[current].classList.replace("opacity-100", "opacity-0");
+      current = (current + 1) % slides.length;
+      slides[current].classList.replace("opacity-0", "opacity-100");
+    }, 10000);
+  }
+
+  function stop() {
+    clearInterval(interval);
+  }
+
+  const hero = document.getElementById("hero-section");
+  hero.addEventListener("mouseenter", stop);
+  hero.addEventListener("mouseleave", start);
+
+  start();
+}
+
 async function loadHome() {
   try {
-    const CURRENT_YEAR = 2026;
-    const meetings = await fetchJSON(`${API_BASE}/meetings?year=${CURRENT_YEAR}`);
-    const sessions = await fetchJSON(`${API_BASE}/sessions?year=${CURRENT_YEAR}`);
+    const meetings = await fetchJSON(`${API_BASE}/meetings?year=${CURRENT_YEAR}`, { retries: 2 });
+    await sleep(50);
+
+    const sessions = await fetchJSON(`${API_BASE}/sessions?year=${CURRENT_YEAR}`, { retries: 2 });
+    await sleep(50);
 
     const sortedMeetings = [...meetings].sort((a, b) => new Date(a.date_start) - new Date(b.date_start));
     const nextMeeting = getNextMeeting(sortedMeetings);
     const latestSession = [...sessions].sort((a, b) => new Date(b.date_start) - new Date(a.date_start))[0];
+    const latestRaceSession = getLatestRaceSession(sessions);
 
     setNextGp(nextMeeting);
-    renderCircuitHighlights(sortedMeetings);
-    renderCalendar(sortedMeetings);
-    renderLastSession(latestSession);
     renderCircuitInfo(nextMeeting);
+    renderCalendar(sortedMeetings);
 
-    if (latestSession?.session_key) {
-      const [drivers, driverStandings, constructorStandings] = await Promise.all([
-        fetchJSON(`${API_BASE}/drivers?session_key=${latestSession.session_key}`),
-        fetchJSON(`${API_BASE}/championship_drivers?session_key=${latestSession.session_key}`).catch(() => []),
-        fetchJSON(`${API_BASE}/championship_teams?session_key=${latestSession.session_key}`).catch(() => [])
-      ]);
+    if (!latestRaceSession?.session_key) {
+      renderDriverStandings([], []);
+      renderConstructorStandings([]);
+      renderSeasonPrediction([], [], []);
+      return;
+    }
 
+    await sleep(50);
+    const driverStandings = await fetchJSON(
+      `${API_BASE}/championship_drivers?session_key=${latestRaceSession.session_key}`,
+      { retries: 3 }
+    ).catch(() => []);
+
+    await sleep(50);
+    const constructorStandings = await fetchJSON(
+      `${API_BASE}/championship_teams?session_key=${latestRaceSession.session_key}`,
+      { retries: 3 }
+    ).catch(() => []);
+
+    let drivers = [];
+    await sleep(50);
+    drivers = await fetchJSON(
+      `${API_BASE}/drivers?session_key=${latestRaceSession.session_key}`,
+      { retries: 3 }
+    ).catch(() => []);
+
+    renderDriverStandings(driverStandings, drivers);
+    renderConstructorStandings(constructorStandings);
+    renderSeasonPrediction(driverStandings, constructorStandings, sortedMeetings);
+
+    if (drivers.length) {
       renderTeams(drivers);
-      renderDriverStandings(driverStandings, drivers);
-      renderConstructorStandings(constructorStandings);
     }
   } catch (error) {
     console.error("Error cargando F1 Pulse:", error);
+
+    renderDriverStandings([], []);
+    renderConstructorStandings([]);
+    renderSeasonPrediction([], [], []);
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadHome);
+document.addEventListener("DOMContentLoaded", () => {
+  initHeroSlider();
+  loadHome();
+});
