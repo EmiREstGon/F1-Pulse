@@ -1,8 +1,12 @@
 <?php
+require_once __DIR__ . '/config/bootstrap.php';
+
+$apiBase = $_ENV['OPENF1_BASE_URL'] ?? '';
 $pageTitle = 'F1 Pulse';
 ?>
 <!DOCTYPE html>
 <html class="dark" lang="es">
+
 <head>
     <?php include __DIR__ . '/components/head.php'; ?>
 </head>
@@ -512,6 +516,13 @@ $pageTitle = 'F1 Pulse';
     </main>
 
     <?php include __DIR__ . '/components/footer.php'; ?>
+
+    <script>
+        window.APP_CONFIG = {
+            OPENF1_BASE_URL: "<?= htmlspecialchars($_ENV['OPENF1_BASE_URL'] ?? '', ENT_QUOTES) ?>",
+            GOOGLE_MAPS_API_KEY: "<?= htmlspecialchars($_ENV['GOOGLE_MAPS_API_KEY'] ?? '', ENT_QUOTES) ?>"
+        };
+    </script>
 
     <script src="assets/js/app.js"></script>
 </body>
