@@ -59,7 +59,7 @@ const fallbackConstructorStandings = [
   { position_current: 1, team_name: "Mercedes", points_current: 135 },
   { position_current: 2, team_name: "Ferrari", points_current: 90 },
   { position_current: 3, team_name: "McLaren", points_current: 46 },
-  { position_current: 4, team_name: "Haas F1 Team", points_current: 18 },
+  { position_current: 4, team_name: "Haas", points_current: 18 },
   { position_current: 5, team_name: "Alpine", points_current: 16 },
   { position_current: 6, team_name: "Red Bull Racing", points_current: 16 },
   { position_current: 7, team_name: "Racing Bulls", points_current: 14 },
@@ -69,20 +69,36 @@ const fallbackConstructorStandings = [
   { position_current: 11, team_name: "Aston Martin", points_current: 0 }
 ];
 
-const teamLogos = {
-  "McLaren": "assets/img/logos/brands/mclaren.svg",
-  "Red Bull Racing": "assets/img/logos/brands/red-bull-racing.svg",
-  "Audi": "assets/img/logos/brands/audi.svg",
-  "Ferrari": "assets/img/logos/brands/ferrari.svg",
-  "Mercedes": "assets/img/logos/brands/mercedes.svg",
-  "Aston Martin": "assets/img/logos/brands/aston-martin.svg",
-  "Alpine": "assets/img/logos/brands/alpine.svg",
-  "Williams": "assets/img/logos/brands/williams.svg",
-  "RB": "assets/img/logos/brands/racing-bulls.svg",
-  "Racing Bulls": "assets/img/logos/brands/racing-bulls.svg",
-  "Cadillac": "assets/img/logos/brands/cadillac.svg",
-  "Haas": "assets/img/logos/brands/haas.svg",
-  "Haas F1 Team": "assets/img/logos/brands/haas.svg"
+const teamMonoLogos = {
+  "McLaren": "assets/img/logos/brands/mono/mclaren.svg",
+  "Red Bull Racing": "assets/img/logos/brands/mono/red-bull-racing.svg",
+  "Audi": "assets/img/logos/brands/mono/audi.svg",
+  "Ferrari": "assets/img/logos/brands/mono/ferrari.svg",
+  "Mercedes": "assets/img/logos/brands/mono/mercedes.svg",
+  "Aston Martin": "assets/img/logos/brands/mono/aston-martin.svg",
+  "Alpine": "assets/img/logos/brands/mono/alpine.svg",
+  "Williams": "assets/img/logos/brands/mono/williams.svg",
+  "RB": "assets/img/logos/brands/mono/racing-bulls.svg",
+  "Racing Bulls": "assets/img/logos/brands/mono/racing-bulls.svg",
+  "Cadillac": "assets/img/logos/brands/mono/cadillac.svg",
+  "Haas": "assets/img/logos/brands/mono/haas.svg",
+  "Haas F1 Team": "assets/img/logos/brands/mono/haas.svg"
+};
+
+const teamColoredLogos = {
+  "McLaren": "assets/img/logos/brands/colored/mclaren-colored.svg",
+  "Red Bull Racing": "assets/img/logos/brands/colored/red-bull-racing-colored.svg",
+  "Audi": "assets/img/logos/brands/colored/audi-colored.svg",
+  "Ferrari": "assets/img/logos/brands/colored/ferrari-colored.svg",
+  "Mercedes": "assets/img/logos/brands/colored/mercedes-colored.svg",
+  "Aston Martin": "assets/img/logos/brands/colored/aston-martin-colored.svg",
+  "Alpine": "assets/img/logos/brands/colored/alpine-colored.svg",
+  "Williams": "assets/img/logos/brands/colored/williams-colored.svg",
+  "RB": "assets/img/logos/brands/colored/racing-bulls-colored.svg",
+  "Racing Bulls": "assets/img/logos/brands/colored/racing-bulls-colored.svg",
+  "Cadillac": "assets/img/logos/brands/colored/cadillac-colored.svg",
+  "Haas": "assets/img/logos/brands/colored/haas-colored.svg",
+  "Haas F1 Team": "assets/img/logos/brands/colored/haas-colored.svg"
 };
 
 const teamColors = {
@@ -261,7 +277,8 @@ function sleep(ms) {
 async function fetchJSON(url, options = {}) {
   const {
     retries = 3,
-    retryDelay = 1200
+    retryDelay = 1200,
+    returnNullOn404 = false
   } = options;
 
   for (let attempt = 0; attempt <= retries; attempt++) {
@@ -269,6 +286,10 @@ async function fetchJSON(url, options = {}) {
 
     if (res.ok) {
       return res.json();
+    }
+
+    if (res.status === 404 && returnNullOn404) {
+      return null;
     }
 
     if (res.status === 429 && attempt < retries) {
@@ -302,16 +323,28 @@ function normalizeTeamName(name) {
     .trim();
 }
 
-function getTeamLogo(teamName) {
+function getTeamMonoLogo(teamName) {
   const normalized = normalizeTeamName(teamName);
 
-  for (const [key, value] of Object.entries(teamLogos)) {
+  for (const [key, value] of Object.entries(teamMonoLogos)) {
     if (normalizeTeamName(key) === normalized) {
       return value;
     }
   }
 
-  return "assets/img/logos/brands/default.svg";   // fallback imagen por defecto si falla
+  return "";
+}
+
+function getTeamColoredLogo(teamName) {
+  const normalized = normalizeTeamName(teamName);
+
+  for (const [key, value] of Object.entries(teamColoredLogos)) {
+    if (normalizeTeamName(key) === normalized) {
+      return value;
+    }
+  }
+
+  return getTeamMonoLogo(teamName); // fallback mono si falla
 }
 
 function getTeamColor(teamName) {
@@ -460,6 +493,54 @@ function getCircuitTrackImage(meeting, index = 0) {
   return meeting?.circuit_image || circuitImages[index % circuitImages.length];
 }
 
+let countdownInterval;
+
+function startCountdown(dateStr) {
+  if (!dateStr) return;
+
+  const target = new Date(dateStr);
+
+  clearInterval(countdownInterval);
+
+  function update() {
+    const now = new Date();
+    const diff = target - now;
+
+    const countdownEl = document.getElementById("countdown");
+
+    if (countdownEl) {
+      countdownEl.classList.remove("animate-pulse");
+    }
+
+    if (diff <= 0) {
+      const countdownEl = document.getElementById("countdown");
+
+      if (countdownEl) {
+        countdownEl.classList.remove("animate-pulse");
+      }
+
+      countdownEl.innerHTML =
+        `<p class="text-white font-bold text-xl">¡En curso!</p>`;
+
+      clearInterval(countdownInterval);
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("cd-days").textContent = days;
+    document.getElementById("cd-hours").textContent = hours;
+    document.getElementById("cd-minutes").textContent = minutes;
+    document.getElementById("cd-seconds").textContent = seconds;
+  }
+
+  update();
+  countdownInterval = setInterval(update, 1000);
+}
+
 function setNextGp(meeting) {
   const nameEl = document.getElementById("next-gp-name");
   const dateEl = document.getElementById("next-gp-date");
@@ -469,22 +550,23 @@ function setNextGp(meeting) {
   const country = getCountryData(meeting);
 
   nameEl.innerHTML = `
-    <div class="flex items-center gap-2">
-      ${country.flagUrl ? `
-        <img 
-          src="${country.flagUrl}" 
-          alt="${country.nameES || country.name}" 
-          class="w-5 h-4 object-cover rounded-sm"
-          draggable="false"
-        />
-      ` : ""}
-      <span>
-        ${getMeetingNameES(meeting)} · ${getCircuitNameES(meeting)}
-      </span>
-    </div>
+    ${country.flagUrl ? `
+      <img 
+        src="${country.flagUrl}" 
+        alt="${country.nameES || country.name}" 
+        class="w-5 h-4 object-cover rounded-sm"
+        draggable="false"
+      />
+    ` : ""}
+    <span>
+      ${getMeetingNameES(meeting)} · ${getCircuitNameES(meeting)}
+    </span>
   `;
 
+  nameEl.classList.remove("animate-pulse");
+  dateEl.classList.remove("animate-pulse");
   dateEl.textContent = formatDate(meeting.date_start);
+  startCountdown(meeting.date_start);
 }
 
 function renderCircuitInfo(meeting) {
@@ -494,52 +576,75 @@ function renderCircuitInfo(meeting) {
   const country = getCountryData(meeting);
   const { data: extra } = getCircuitExtra(meeting);
 
+  block.classList.remove("animate-pulse");
+
   block.innerHTML = `
-    <div class="flex items-center gap-6">
-      <div class="w-16 h-16 flex items-center justify-center">
-        <span class="material-symbols-outlined text-4xl text-primary-container"><i class="fa-solid fa-circle-info"></i></span>
-      </div>
-      <div class="flex flex-col gap-2">
-        <p class="text-white font-headline font-bold italic uppercase text-xl">Información del Circuito</p>
-        <div class="flex items-center gap-2">
-          ${country.flagUrl ? `
-            <img 
-              src="${country.flagUrl}" 
-              alt="${country.nameES || country.name}" 
-              class="w-6 h-4 object-cover rounded-sm"
-              draggable="false"
-            />
-          ` : ""}
-          <span class="text-sm text-zinc-500 uppercase tracking-widest">
-            ${country.nameES || "País"} · ${getCircuitNameES(meeting)}
-          </span>
+    <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-primary-container/5 via-transparent to-transparent"></div>
+
+    <div class="relative z-10 flex flex-col gap-8">
+      <!-- Header -->
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div class="flex items-center gap-6">
+          <i class="fa-solid fa-circle-info text-3xl text-primary-container"></i>
+
+          <div class="flex flex-col gap-2">
+            <p class="text-white font-headline font-black italic uppercase text-2xl tracking-tight">
+              Información del circuito
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3">
+              ${country.flagUrl ? `
+                <img 
+                  src="${country.flagUrl}" 
+                  alt="${country.nameES || country.name}" 
+                  class="w-6 h-4 object-cover rounded-sm border border-white/10"
+                  draggable="false"
+                />
+              ` : ""}
+
+              <span class="text-sm text-zinc-400 uppercase tracking-[0.18em]">
+                ${country.nameES || "País"} · ${getCircuitNameES(meeting)}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="px-4 py-2 rounded-full border border-primary-container/20 bg-primary-container/10 text-primary text-xs md:text-sm font-headline uppercase tracking-widest self-start lg:self-center">
+          ${getMeetingNameES(meeting)}
         </div>
       </div>
-    </div>
-    <div class="grid grid-cols-2 md:grid-cols-6 gap-12">
-      <div class="text-center">
-        <p class="text-zinc-500 text-[10px] uppercase font-headline">Longitud</p>
-        <p class="text-white font-bold italic">${extra.length} KM</p>
-      </div>
-      <div class="text-center">
-        <p class="text-zinc-500 text-[10px] uppercase font-headline">Vueltas</p>
-        <p class="text-white font-bold italic">${extra.laps}</p>
-      </div>
-      <div class="text-center">
-        <p class="text-zinc-500 text-[10px] uppercase font-headline">Récord</p>
-        <p class="text-white font-bold italic">${extra.lapRecord}</p>
-      </div>
-      <div class="text-center">
-        <p class="text-zinc-500 text-[10px] uppercase font-headline">Piloto récord</p>
-        <p class="text-white font-bold italic">${extra.lapRecordDriver || "N/D"}</p>
-      </div>
-      <div class="text-center">
-        <p class="text-zinc-500 text-[10px] uppercase font-headline">Año récord</p>
-        <p class="text-white font-bold italic">${extra.lapRecordYear || "N/D"}</p>
-      </div>
-      <div class="text-center">
-        <p class="text-zinc-500 text-[10px] uppercase font-headline">Curvas</p>
-        <p class="text-white font-bold italic">${extra.turns}</p>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
+        <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center hover:border-primary-container/30 transition-colors">
+          <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Longitud</p>
+          <p class="text-white font-bold italic text-2xl">${extra.length} KM</p>
+        </div>
+
+        <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center hover:border-primary-container/30 transition-colors">
+          <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Vueltas</p>
+          <p class="text-white font-bold italic text-2xl">${extra.laps}</p>
+        </div>
+
+        <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center hover:border-primary-container/30 transition-colors">
+          <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Récord</p>
+          <p class="text-white font-bold italic text-2xl">${extra.lapRecord}</p>
+        </div>
+
+        <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center hover:border-primary-container/30 transition-colors">
+          <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Piloto récord</p>
+          <p class="text-white font-bold italic text-2xl leading-tight">${extra.lapRecordDriver || "N/D"}</p>
+        </div>
+
+        <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center hover:border-primary-container/30 transition-colors">
+          <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Año récord</p>
+          <p class="text-white font-bold italic text-2xl">${extra.lapRecordYear || "N/D"}</p>
+        </div>
+
+        <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center hover:border-primary-container/30 transition-colors">
+          <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Curvas</p>
+          <p class="text-white font-bold italic text-2xl">${extra.turns}</p>
+        </div>
       </div>
     </div>
   `;
@@ -548,6 +653,8 @@ function renderCircuitInfo(meeting) {
 function renderCalendar(meetings) {
   const container = document.getElementById("circuit-list");
   if (!container || !meetings?.length) return;
+
+  container.classList.remove("animate-pulse");
 
   const now = new Date();
 
@@ -560,6 +667,7 @@ function renderCalendar(meetings) {
     .slice(0, 7);
 
   if (!upcomingMeetings.length) {
+    container.classList.remove("animate-pulse");
     container.innerHTML = `
       <div class="md:col-span-4 bg-surface-container-low p-8 text-center">
         <p class="text-zinc-400 font-headline uppercase tracking-widest text-sm">
@@ -595,7 +703,7 @@ function renderCalendar(meetings) {
             <img 
               src="${country.flagUrl}" 
               alt="${country.nameES || country.name}" 
-              class="w-6 h-4 object-cover rounded-sm"
+              class="w-6 h-4 object-cover rounded-sm border border-zinc-700"
               draggable="false"
             />
           ` : ""}
@@ -639,6 +747,16 @@ function renderTeams(drivers) {
   const container = document.getElementById("team-list");
   if (!container || !drivers?.length) return;
 
+  if (!drivers?.length) {
+    container.classList.remove("animate-pulse");
+    container.innerHTML = `
+      <div class="col-span-2 md:col-span-4 text-center text-zinc-400 font-headline uppercase tracking-widest">
+        No se han podido cargar las escuderías
+      </div>
+    `;
+    return;
+  }
+
   const uniqueTeams = new Map();
 
   drivers.forEach(driver => {
@@ -648,6 +766,8 @@ function renderTeams(drivers) {
   });
 
   const teams = [...uniqueTeams.values()].slice(0, 11);
+
+  container.classList.remove("animate-pulse");
 
   container.innerHTML = teams.map(team => {
     const color = typeof getTeamColor === "function"
@@ -666,19 +786,19 @@ function renderTeams(drivers) {
         ></div>
 
         <div class="relative z-10 w-full flex flex-col items-center">
-          <div class="h-20 w-full mb-5 flex items-center justify-center overflow-hidden">
+          <div class="h-20 w-full mb-2 flex items-center justify-center overflow-hidden">
             <img
               alt="${team.team_name}"
               class="h-full max-w-[120px] object-contain"
               draggable="false"
-              src="${getTeamLogo(team.team_name)}"
-              onerror="this.src='assets/img/logos/brands/default.svg'"
+              src="${getTeamMonoLogo(team.team_name)}"
+              onerror="this.src='assets/img/error/img-not-found.svg'"
             />
           </div>
 
-          <div class="w-full h-[1px] bg-white/10 mb-6"></div>
+          <div class="w-full h-[1px] bg-white/10 mb-4"></div>
 
-          <p class="font-black italic text-white font-headline text-lg text-center uppercase mb-3">
+          <p class="font-black italic text-white font-headline text-2xl text-center uppercase mb-3">
             ${team.team_name}
           </p>
 
@@ -688,7 +808,7 @@ function renderTeams(drivers) {
               <img 
                 src="${teamCountry.flagUrl}" 
                 alt="${teamCountry.nameES || teamCountry.name}" 
-                class="h-4 object-cover rounded-sm" 
+                class="h-4 object-cover rounded-sm border border-zinc-700" 
                 draggable="false" 
               />
             ` : ""}
@@ -699,25 +819,89 @@ function renderTeams(drivers) {
   }).join("");
 }
 
-function getLatestRaceSession(sessions) {
-  if (!Array.isArray(sessions)) return null;
+function getCompletedRaceSessions(sessions) {
+  if (!Array.isArray(sessions)) return [];
 
-  const raceKeywords = ["race", "grand prix"];
+  const now = new Date();
 
-  const raceSessions = sessions.filter(session => {
-    const sessionName = (session.session_name || "").toLowerCase();
-    return raceKeywords.some(keyword => sessionName.includes(keyword));
-  });
+  return sessions
+    .filter(session => {
+      const sessionType = (session.session_type || "").toLowerCase();
+      const sessionDate = session?.date_start ? new Date(session.date_start) : null;
 
-  if (!raceSessions.length) return null;
+      return sessionType === "race" && sessionDate && sessionDate <= now;
+    })
+    .sort((a, b) => new Date(b.date_start) - new Date(a.date_start));
+}
 
-  return [...raceSessions].sort(
-    (a, b) => new Date(b.date_start) - new Date(a.date_start)
-  )[0];
+async function findLatestRaceSessionWithStandings(sessions) {
+  const candidates = getCompletedRaceSessions(sessions);
+
+  for (const session of candidates) {
+    await sleep(250);
+
+    const driverStandings = await fetchJSON(
+      `${API_BASE}/championship_drivers?session_key=${session.session_key}`,
+      {
+        retries: 2,
+        retryDelay: 1500,
+        returnNullOn404: true
+      }
+    ).catch(() => null);
+
+    if (!Array.isArray(driverStandings) || driverStandings.length === 0) {
+      continue;
+    }
+
+    await sleep(250);
+
+    const constructorStandings = await fetchJSON(
+      `${API_BASE}/championship_teams?session_key=${session.session_key}`,
+      {
+        retries: 2,
+        retryDelay: 1500,
+        returnNullOn404: true
+      }
+    ).catch(() => null);
+
+    if (!Array.isArray(constructorStandings) || constructorStandings.length === 0) {
+      continue;
+    }
+
+    return {
+      session,
+      driverStandings,
+      constructorStandings
+    };
+  }
+
+  return {
+    session: null,
+    driverStandings: [],
+    constructorStandings: []
+  };
 }
 
 function hasStandingsData(rows) {
   return Array.isArray(rows) && rows.length > 0;
+}
+
+function getPositionBadgeClass(position, type="driver") {
+  if (position === 1) {
+    return "bg-yellow-500/20 text-yellow-300";
+  }
+
+  if (position === 2) {
+    return "bg-zinc-500/25 text-zinc-200";
+  }
+
+  if (position === 3) {
+    return "bg-orange-500/20 text-orange-300";
+  }
+
+  return type === "driver"
+    ? "bg-primary-container/15 text-white"
+    : "bg-zinc-700/60 text-white";
 }
 
 function renderDriverStandings(rows, drivers = []) {
@@ -735,27 +919,70 @@ function renderDriverStandings(rows, drivers = []) {
     .sort((a, b) => Number(a.position_current) - Number(b.position_current))
     .slice(0, 5);
 
-  container.innerHTML = `
-    <div class="divide-y divide-white/5">
-      ${top.map(row => {
-    const driver = driversMap.get(Number(row.driver_number));
-    const fullName =
-      row.full_name ||
-      driver?.full_name ||
-      [driver?.first_name, driver?.last_name].filter(Boolean).join(" ") ||
-      `Piloto #${row.driver_number ?? "N/D"}`;
+  container.classList.remove("animate-pulse");
 
-    return `
-          <div class="flex justify-between items-center py-3">
-            <span class="text-white font-bold">
-              ${row.position_current}. ${fullName}
-            </span>
-            <span class="text-primary-container">
-              ${row.points_current ?? 0} PTS
-            </span>
+  container.innerHTML = `
+    <div class="space-y-3">
+      ${top.map(row => {
+        const position = Number(row.position_current);
+        const driver = driversMap.get(Number(row.driver_number));
+
+        const firstName =
+          row.first_name ||
+          driver?.first_name ||
+          [driver?.first_name, driver?.last_name].filter(Boolean).join(" ") ||
+          `Piloto #${row.driver_number ?? "N/D"}`;
+
+        const lastName =
+          row.last_name ||
+          driver?.last_name ||
+          [driver?.first_name, driver?.last_name].filter(Boolean).join(" ") ||
+          `Piloto #${row.driver_number ?? "N/D"}`;
+
+        const teamName =
+          driver?.team_name ||
+          row.team_name ||
+          "Equipo no disponible";
+
+        const headshot =
+          driver?.headshot_url ||
+          "assets/img/error/img-not-found.svg";
+
+        const badgeClass = getPositionBadgeClass(position, "driver");
+        const teamColor = getTeamColor(teamName);
+
+        return `
+          <div class="flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-primary-container/10 to-transparent border border-white/5 hover:border-primary-container/30 hover:bg-primary-container/10 transition-all duration-300">
+            <div class="flex items-center gap-4 min-w-0">
+              <div class="size-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 ${badgeClass}">
+                ${position}
+              </div>
+
+              <div 
+                class="size-12 rounded-full overflow-hidden border border-white/10 shrink-0" 
+                style="background-color: ${teamColor};"
+                >
+                <img
+                  src="${headshot}"
+                  alt="${firstName} ${lastName}"
+                  class="w-full h-full object-cover"
+                  draggable="false"
+                  onerror="this.src='assets/img/drivers/default-driver.png'"
+                />
+              </div>
+
+              <div class="min-w-0">
+                <p class="text-white font-bold truncate text-base">${firstName} ${lastName}</p>
+              </div>
+            </div>
+
+            <div class="text-center shrink-0">
+              <p class="text-primary-container font-black text-2xl leading-none">${row.points_current ?? 0}</p>
+              <p class="text-xs uppercase tracking-[0.1em] text-zinc-500 mt-1">PTS</p>
+            </div>
           </div>
         `;
-  }).join("")}
+      }).join("")}
     </div>
   `;
 }
@@ -771,18 +998,45 @@ function renderConstructorStandings(rows) {
     .sort((a, b) => Number(a.position_current) - Number(b.position_current))
     .slice(0, 5);
 
+  container.classList.remove("animate-pulse");
+
   container.innerHTML = `
-    <div class="divide-y divide-white/5">
-      ${top.map(row => `
-        <div class="flex justify-between items-center py-3">
-          <span class="text-white font-bold">
-            ${row.position_current}. ${row.team_name || "Equipo"}
-          </span>
-          <span class="text-zinc-300">
-            ${row.points_current ?? 0} PTS
-          </span>
-        </div>
-      `).join("")}
+    <div class="space-y-3">
+      ${top.map(row => {
+        const position = Number(row.position_current);
+        const teamName = row.team_name || "Equipo";
+        const badgeClass = getPositionBadgeClass(position, "constructor");
+        const logo = getTeamColoredLogo(teamName);
+
+        return `
+          <div class="flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-white/5 to-transparent border border-white/5 hover:border-white/15 hover:bg-white/5 transition-all duration-300">
+            <div class="flex items-center gap-4 min-w-0">
+              <div class="size-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 ${badgeClass}">
+                ${position}
+              </div>
+
+              <div class="size-12 flex items-center justify-center">
+                <img
+                  src="${logo}"
+                  alt="${teamName}"
+                  class="max-w-full max-h-full object-contain"
+                  draggable="false"
+                  onerror="this.src='assets/img/error/img-not-found.svg'"
+                />
+              </div>
+
+              <div class="min-w-0">
+                <p class="text-white font-bold truncate text-base">${teamName}</p>
+              </div>
+            </div>
+
+            <div class="text-center shrink-0">
+              <p class="text-zinc-100 font-black text-2xl leading-none">${row.points_current ?? 0}</p>
+              <p class="text-xs uppercase tracking-[0.1em] text-zinc-500 mt-1">PTS</p>
+            </div>
+          </div>
+        `;
+      }).join("")}
     </div>
   `;
 }
@@ -866,6 +1120,9 @@ function buildPredictionRows(rows = [], meetings = [], nameField = "full_name") 
       return {
         ...row,
         displayName: row[nameField] || row.team_name || "N/D",
+        driver_number: row.driver_number ?? null,
+        team_name: row.team_name ?? null,
+        headshot_url: row.headshot_url ?? null,
         currentPoints,
         avgPointsPerRace,
         projectedPoints
@@ -895,40 +1152,171 @@ function buildPredictionRows(rows = [], meetings = [], nameField = "full_name") 
   }).slice(0, 3);
 }
 
-function renderPredictionList(container, rows, type = "driver") {
-  container.innerHTML = `
-    <div class="divide-y divide-white/15">
-      ${rows.map((row, index) => `
-        <div class="py-4">
-          <div class="flex items-start justify-between gap-3 mb-1">
-            <div>
-              <p class="text-white font-bold leading-tight">
-                ${index + 1}. ${row.displayName}
-              </p>
-              <p class="text-white/75 text-[11px] uppercase tracking-wider mt-1">
-                ${round1(row.avgPointsPerRace)} pts/carrera
-              </p>
-            </div>
-            <div class="text-right">
-              <p class="text-white font-bold text-sm">
-                ${Math.round(row.projectedPoints)} pts
-              </p>
-              <p class="text-white/75 text-[11px] uppercase tracking-wider">
-                ${row.projectionIndex}% de conservar posición
-              </p>
-            </div>
-          </div>
+function normalizeDriverName(name = "") {
+  return name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
-          <div class="w-full h-2 bg-white/15 rounded-full overflow-hidden">
-            <div class="h-full bg-white/85 rounded-full transition-all duration-500" style="width:${row.projectionIndex}%"></div>
+function renderPredictionList(container, rows, type = "driver", drivers = []) {
+  if (!container) return;
+
+  const driversByNumber = type === "driver"
+    ? new Map((drivers || []).map(driver => [Number(driver.driver_number), driver]))
+    : new Map();
+
+  const driversByName = type === "driver"
+    ? new Map((drivers || []).map(driver => [normalizeDriverName(driver.full_name), driver]))
+    : new Map();
+
+  if (type === "driver") {
+    console.log("Drivers recibidos:", drivers);
+  }
+
+  container.innerHTML = `
+    <div class="space-y-3">
+      ${rows.map((row, index) => {
+        const position = index + 1;
+        const badgeClass = getPositionBadgeClass(position, type);
+
+        if (type === "driver") {
+          const driver =
+            (row.driver_number != null
+              ? driversByNumber.get(Number(row.driver_number))
+              : null) ||
+            driversByName.get(normalizeDriverName(row.displayName));
+
+          console.log("Row:", row.displayName, row.driver_number, "->", driver);
+
+          const firstName =
+          row.first_name ||
+          driver?.first_name ||
+          [driver?.first_name, driver?.last_name].filter(Boolean).join(" ") ||
+          `Piloto #${row.driver_number ?? "N/D"}`;
+
+        const lastName =
+          row.last_name ||
+          driver?.last_name ||
+          [driver?.first_name, driver?.last_name].filter(Boolean).join(" ") ||
+          `Piloto #${row.driver_number ?? "N/D"}`;
+
+          const teamName =
+            row.team_name ||
+            driver?.team_name ||
+            "Equipo no disponible";
+
+          const headshot =
+            row.headshot_url ||
+            driver?.headshot_url ||
+            "assets/img/drivers/default-driver.png";
+
+          const teamColor = getTeamColor(teamName);
+
+          return `
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-white/10 to-transparent border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300">
+              <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-4 min-w-0">
+                  <div class="size-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 ${badgeClass}">
+                    ${position}
+                  </div>
+
+                  <div 
+                    class="size-12 rounded-full overflow-hidden border border-white/10 shrink-0"
+                    style="background-color: ${teamColor};"
+                  >
+                    <img
+                      src="${headshot}"
+                      alt="${row.displayName}"
+                      class="w-full h-full object-cover"
+                      draggable="false"
+                      onerror="this.src='assets/img/drivers/default-driver.png'"
+                    />
+                  </div>
+
+                  <div class="min-w-0">
+                    <p class="text-white font-bold truncate text-base">${firstName} ${lastName}</p>
+                    <p class="text-white/80 text-[11px] uppercase tracking-wider mt-1">
+                      ${round1(row.avgPointsPerRace)} pts/carrera
+                    </p>
+                  </div>
+                </div>
+
+                <div class="text-right shrink-0">
+                  <p class="text-white font-black text-xl leading-none">
+                    ${Math.round(row.projectedPoints)} PTS
+                  </p>
+                  <p class="text-white/80 text-[11px] uppercase tracking-wider mt-1">
+                    ${row.projectionIndex}% de conservar posición
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-4 w-full h-2 bg-white/15 rounded-full overflow-hidden">
+                <div 
+                  class="h-full bg-white/80 rounded-full transition-all duration-500"
+                  style="width:${row.projectionIndex}%"
+                ></div>
+              </div>
+            </div>
+          `;
+        }
+
+        const teamName = row.displayName || row.team_name || "Equipo";
+        const logo = getTeamColoredLogo(teamName);
+
+        return `
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-white/10 to-transparent border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="size-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 ${badgeClass}">
+                  ${position}
+                </div>
+
+                <div class="size-12 flex items-center justify-center bg-zinc-300/30 p-1 rounded-md">
+                  <img
+                    src="${logo}"
+                    alt="${teamName}"
+                    class="max-w-full max-h-full object-contain"
+                    draggable="false"
+                    onerror="this.src='assets/img/error/img-not-found.svg'"
+                  />
+                </div>
+
+                <div class="min-w-0">
+                  <p class="text-white font-bold truncate text-base">${teamName}</p>
+                  <p class="text-white/80 text-[11px] uppercase tracking-wider mt-1">
+                    ${round1(row.avgPointsPerRace)} pts/carrera
+                  </p>
+                </div>
+              </div>
+
+              <div class="text-right shrink-0">
+                <p class="text-white font-black text-xl leading-none">
+                  ${Math.round(row.projectedPoints)} PTS
+                </p>
+                <p class="text-white/80 text-[11px] uppercase tracking-wider mt-1">
+                  ${row.projectionIndex}% de conservar posición
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-4 w-full h-2 bg-white/15 rounded-full overflow-hidden">
+              <div 
+                class="h-full bg-white/80 rounded-full transition-all duration-500"
+                style="width:${row.projectionIndex}%"
+              ></div>
+            </div>
           </div>
-        </div>
-      `).join("")}
+        `;
+      }).join("")}
     </div>
   `;
 }
 
-function renderSeasonPrediction(driverRows = [], constructorRows = [], meetings = []) {
+function renderSeasonPrediction(driverRows = [], constructorRows = [], meetings = [], drivers = []) {
   const driverContainer = document.getElementById("predicted-driver-podium");
   const constructorContainer = document.getElementById("predicted-constructor-podium");
   const summary = document.getElementById("season-prediction-summary");
@@ -941,13 +1329,13 @@ function renderSeasonPrediction(driverRows = [], constructorRows = [], meetings 
   const completedMeetings = getCompletedMeetingsCount(meetings);
   const totalMeetings = getTotalMeetingsCount(meetings);
 
-  summary.textContent = `Estimación del final de la temporada, basada en ritmo actual y puntos por carrera en ${completedMeetings} de ${totalMeetings} carreras disputadas`;
+  summary.textContent = `Estimación del final de la temporada a partir del ritmo actual de puntuación en ${completedMeetings} de ${totalMeetings} carreras disputadas.`;
 
   const predictedDrivers = buildPredictionRows(safeDrivers, meetings, "full_name");
   const predictedConstructors = buildPredictionRows(safeConstructors, meetings, "team_name");
 
-  renderPredictionList(driverContainer, predictedDrivers, "driver");
-  renderPredictionList(constructorContainer, predictedConstructors, "constructor");
+  renderPredictionList(driverContainer, predictedDrivers, "driver", drivers);
+  renderPredictionList(constructorContainer, predictedConstructors, "constructor", drivers);
 }
 
 let interval;
@@ -980,49 +1368,43 @@ function initHeroSlider() {
 async function loadHome() {
   try {
     const meetings = await fetchJSON(`${API_BASE}/meetings?year=${CURRENT_YEAR}`, { retries: 2 });
-    await sleep(50);
+    await sleep(200);
 
     const sessions = await fetchJSON(`${API_BASE}/sessions?year=${CURRENT_YEAR}`, { retries: 2 });
-    await sleep(50);
+    await sleep(200);
 
-    const sortedMeetings = [...meetings].sort((a, b) => new Date(a.date_start) - new Date(b.date_start));
+    const sortedMeetings = [...meetings].sort(
+      (a, b) => new Date(a.date_start) - new Date(b.date_start)
+    );
+
     const nextMeeting = getNextMeeting(sortedMeetings);
-    const latestSession = [...sessions].sort((a, b) => new Date(b.date_start) - new Date(a.date_start))[0];
-    const latestRaceSession = getLatestRaceSession(sessions);
 
     setNextGp(nextMeeting);
     renderCircuitInfo(nextMeeting);
     renderCalendar(sortedMeetings);
 
+    const {
+      session: latestRaceSession,
+      driverStandings,
+      constructorStandings
+    } = await findLatestRaceSessionWithStandings(sessions);
+
     if (!latestRaceSession?.session_key) {
       renderDriverStandings([], []);
       renderConstructorStandings([]);
-      renderSeasonPrediction([], [], []);
+      renderSeasonPrediction([], [], [], []);
       return;
     }
 
-    await sleep(50);
-    const driverStandings = await fetchJSON(
-      `${API_BASE}/championship_drivers?session_key=${latestRaceSession.session_key}`,
-      { retries: 3 }
-    ).catch(() => []);
-
-    await sleep(50);
-    const constructorStandings = await fetchJSON(
-      `${API_BASE}/championship_teams?session_key=${latestRaceSession.session_key}`,
-      { retries: 3 }
-    ).catch(() => []);
-
-    let drivers = [];
-    await sleep(50);
-    drivers = await fetchJSON(
+    await sleep(250);
+    const drivers = await fetchJSON(
       `${API_BASE}/drivers?session_key=${latestRaceSession.session_key}`,
-      { retries: 3 }
+      { retries: 2, retryDelay: 1500 }
     ).catch(() => []);
 
     renderDriverStandings(driverStandings, drivers);
     renderConstructorStandings(constructorStandings);
-    renderSeasonPrediction(driverStandings, constructorStandings, sortedMeetings);
+    renderSeasonPrediction(driverStandings, constructorStandings, sortedMeetings, drivers);
 
     if (drivers.length) {
       renderTeams(drivers);
@@ -1032,7 +1414,7 @@ async function loadHome() {
 
     renderDriverStandings([], []);
     renderConstructorStandings([]);
-    renderSeasonPrediction([], [], []);
+    renderSeasonPrediction([], [], [], []);
   }
 }
 
