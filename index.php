@@ -1,126 +1,15 @@
+<?php
+$pageTitle = 'F1 Pulse';
+?>
 <!DOCTYPE html>
-
 <html class="dark" lang="es">
-
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>F1 Pulse</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link rel="icon" type="image/x-icon" href="assets/img/logos/web/favicon.ico">
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Space+Grotesk:wght@300;400;700;900&amp;display=swap"
-        rel="stylesheet" />
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "primary": "#ffb4a9",
-                        "surface-tint": "#ffb4a9",
-                        "on-error": "#690005",
-                        "on-tertiary-fixed": "#001a40",
-                        "on-error-container": "#ffdad6",
-                        "on-primary-container": "#ffe6e2",
-                        "error-container": "#93000a",
-                        "on-tertiary": "#002f67",
-                        "inverse-primary": "#c00006",
-                        "surface-dim": "#111317",
-                        "on-surface": "#e2e2e8",
-                        "tertiary": "#acc7ff",
-                        "secondary-fixed": "#e2e2e2",
-                        "on-tertiary-fixed-variant": "#004491",
-                        "outline": "#ae8882",
-                        "primary-container": "#d31411",
-                        "tertiary-fixed": "#d7e2ff",
-                        "inverse-on-surface": "#2f3035",
-                        "inverse-surface": "#e2e2e8",
-                        "surface-container-low": "#1a1c20",
-                        "surface-container-highest": "#333539",
-                        "on-secondary-fixed": "#1a1c1c",
-                        "on-secondary-container": "#b4b5b5",
-                        "on-surface-variant": "#e7bdb7",
-                        "on-tertiary-container": "#e5ebff",
-                        "tertiary-container": "#0067d4",
-                        "surface-container": "#1e2024",
-                        "on-secondary-fixed-variant": "#454747",
-                        "secondary": "#c6c6c7",
-                        "primary-fixed": "#ffdad5",
-                        "on-background": "#e2e2e8",
-                        "on-primary": "#690002",
-                        "on-primary-fixed": "#410001",
-                        "background": "#111317",
-                        "secondary-container": "#454747",
-                        "on-primary-fixed-variant": "#930003",
-                        "secondary-fixed-dim": "#c6c6c7",
-                        "primary-fixed-dim": "#ffb4a9",
-                        "outline-variant": "#5d3f3b",
-                        "error": "#ffb4ab",
-                        "surface-container-lowest": "#0c0e12",
-                        "tertiary-fixed-dim": "#acc7ff",
-                        "surface-variant": "#333539",
-                        "on-secondary": "#2f3131",
-                        "surface-container-high": "#282a2e",
-                        "surface": "#111317",
-                        "surface-bright": "#37393e"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0px",
-                        "lg": "0px",
-                        "xl": "0px",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Space Grotesk", "sans-serif"],
-                        "body": ["Inter", "sans-serif"],
-                        "label": ["Space Grotesk", "sans-serif"]
-                    }
-                },
-            },
-        }
-    </script>
-    <script src="assets/js/app.js"></script>
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-    </style>
+    <?php include __DIR__ . '/components/head.php'; ?>
 </head>
 
 <body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-white">
-    <!-- TopAppBar -->
-    <nav
-        class="fixed top-0 w-full z-50 border-b border-white/10 bg-zinc-950/40 backdrop-blur-xl flex justify-between items-center px-8 py-4 max-w-full mx-auto">
-        <div class="flex items-center gap-4">
-            <a href="">
-                <img alt="F1 Pulse Logo" class="h-12 w-auto" src="assets/img/logos/web/Logo Dark.png"
-                    draggable="false" />
-            </a>
-        </div>
-        <div class="hidden md:flex items-center space-x-8">
-            <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
-                href="#">Clasificación</a>
-            <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
-                href="#">Calendario</a>
-            <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
-                href="#">Escuderías</a>
-            <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
-                href="#">Pilotos</a>
-            <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm"
-                href="#">Crea tu fondo</a>
-        </div>
-    </nav>
+    <?php include __DIR__ . '/components/header.php'; ?>
+
     <main class="pt-16">
         <!-- HERO SECTION -->
         <section class="relative h-[855px] overflow-hidden bg-surface-container-lowest" id="hero-section">
@@ -272,7 +161,7 @@
                     <div
                         class="bg-surface-container relative p-8 border border-primary-container/50 border-primary-container rounded-2xl min-h-[360px]">
                         <div class="flex items-center gap-3 mb-6">
-                            <span class="material-symbols-outlined text-primary-container">
+                            <span class="text-primary-container">
                                 <i class="fa-solid fa-ranking-star text-white text-2xl"></i>
                             </span>
                             <span class="font-headline uppercase italic font-bold tracking-widest text-zinc-400">
@@ -319,7 +208,7 @@
                     <div
                         class="bg-surface-container relative p-8 border border-zinc-700 rounded-2xl min-h-[360px]">
                         <div class="flex items-center gap-3 mb-6">
-                            <span class="material-symbols-outlined text-zinc-500">
+                            <span class="text-zinc-500">
                                 <i class="fa-solid fa-trophy text-primary-container text-2xl"></i>
                             </span>
                             <span class="font-headline uppercase italic font-bold tracking-widest text-zinc-400">
@@ -588,7 +477,7 @@
                             desarrollo de su propia unidad de potencia será una de las claves de esta nueva etapa.</p>
                         <div
                             class="flex items-center gap-2 text-white font-headline italic font-bold uppercase text-sm tracking-tighter group-hover:text-primary-container transition-colors">
-                            Explorar equipo <span class="material-symbols-outlined text-sm">trending_flat</span>
+                            Explorar equipo <span class="text-sm"><i class="fa-solid fa-angle-right"></i></span>
                         </div>
                     </div>
                     <!-- Cadillac News -->
@@ -614,49 +503,17 @@
                             abriendo una nueva etapa dentro del campeonato.</p>
                         <div
                             class="flex items-center gap-2 text-white font-headline italic font-bold uppercase text-sm tracking-tighter group-hover:text-primary-container transition-colors">
-                            Explorar equipo <span class="material-symbols-outlined text-sm">trending_flat</span>
+                            Explorar equipo <span class="text-sm"><i class="fa-solid fa-angle-right"></i></span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-    <!-- Footer -->
-    <footer
-        class="w-full border-t border-white/5 py-12 bg-zinc-950 flex flex-col md:flex-row justify-between items-center px-12 gap-6">
-        <div class="flex flex-col items-center md:items-start gap-4">
-            <div class="flex items-center gap-3 flex-wrap justify-center md:justify-start">
-                <img alt="F1 Pulse Logo" class="h-8 w-auto" src="assets/img/logos/web/Logo Dark.png" draggable="false" />
-                <span class="h-4 w-px bg-zinc-800 hidden md:block"></span>
-                <div class="text-xs text-zinc-500 text-center md:text-left leading-relaxed">
-                    <span>F1 Pulse</span> © 2026 de
-                    <span class="text-zinc-400">Emilio Rafael Estévez González</span> está bajo licencia
-                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="underline hover:text-white"
-                        target="_blank">
-                        CC BY-NC-SA 4.0
-                    </a>
-                    <span class="inline-flex items-center ml-1">
-                        <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" class="h-4 ml-1"
-                            draggable="false" />
-                        <img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" class="h-4 ml-1"
-                            draggable="false" />
-                        <img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" class="h-4 ml-1"
-                            draggable="false" />
-                        <img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" class="h-4 ml-1"
-                            draggable="false" />
-                    </span>
-                </div>
-            </div>
-        </div>
-        <a href="https://openf1.org/" target="_blank" rel="noopener noreferrer"
-            class="group inline-flex items-center gap-3 px-5 py-3 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary-container/40 transition-all duration-300">
-            <span class="text-[10px] uppercase tracking-[0.2em] text-zinc-500 group-hover:text-zinc-300 transition-colors">
-                Datos obtenidos de
-            </span>
-            <img src="assets/img/logos/apis/openf1.webp" alt="OpenF1 API" class="h-8 w-auto object-contain"
-                draggable="false" />
-        </a>
-    </footer>
+
+    <?php include __DIR__ . '/components/footer.php'; ?>
+
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>
