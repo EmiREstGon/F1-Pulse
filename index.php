@@ -524,6 +524,25 @@ $pageTitle = 'F1 Pulse';
         };
     </script>
 
+    <script src="assets/js/config.js"></script>
+
+    <script src="assets/js/data/countries.js"></script>
+    <script src="assets/js/data/fallbacks.js"></script>
+    <script src="assets/js/data/teams.js"></script>
+    <script src="assets/js/data/circuits.js"></script>
+    <script src="assets/js/data/translations.js"></script>
+    <script src="assets/js/utils/debug.js"></script>
+    <script src="assets/js/utils/formatters.js"></script>
+    <script src="assets/js/utils/countdown.js"></script>
+    <script src="assets/js/utils/helpers.js"></script>
+    <script src="assets/js/services/openf1.js"></script>
+    <script src="assets/js/views/hero.js"></script>
+    <script src="assets/js/views/circuit.js"></script>
+    <script src="assets/js/views/calendar.js"></script>
+    <script src="assets/js/views/standings.js"></script>
+    <script src="assets/js/views/teams.js"></script>
+    <script src="assets/js/views/prediction.js"></script>
+
     <script src="assets/js/app.js"></script>
 </body>
 
