@@ -2,6 +2,7 @@
 require_once __DIR__ . '/config/bootstrap.php';
 
 $apiBase = $_ENV['OPENF1_BASE_URL'] ?? '';
+$currentPage = 'home';
 $pageTitle = 'F1 Pulse';
 $pageScripts = [
     'assets/js/views/hero.js',
@@ -344,7 +345,7 @@ $pageScripts = [
                                 <div id="predicted-driver-podium" class="space-y-3 animate-pulse">
                                     <!-- SKELETON LOOP -->
                                     <?php for ($i = 0; $i < 3; $i++): ?>
-                                        <div class="p-4 rounded-2xl bg-gradient-to-r from-white/10 to-transparent border border-white/10 h-[122px]">
+                                        <div class="p-4 rounded-2xl bg-gradient-to-r from-white/10 to-transparent border border-white/10">
                                             <div class="flex items-center justify-between gap-4">
                                                 <div class="flex items-center gap-4 min-w-0 flex-1">
                                                     <div class="size-8 rounded-full bg-white/10 shrink-0"></div>
@@ -383,7 +384,7 @@ $pageScripts = [
                                 <div id="predicted-constructor-podium" class="space-y-3 animate-pulse">
                                     <!-- SKELETON LOOP -->
                                     <?php for ($i = 0; $i < 3; $i++): ?>
-                                        <div class="p-4 rounded-2xl bg-gradient-to-r from-white/10 to-transparent border border-white/10 h-[122px]">
+                                        <div class="p-4 rounded-2xl bg-gradient-to-r from-white/10 to-transparent border border-white/10">
                                             <div class="flex items-center justify-between gap-4">
                                                 <div class="flex items-center gap-4 min-w-0 flex-1">
                                                     <div class="size-8 rounded-full bg-white/10 shrink-0"></div>

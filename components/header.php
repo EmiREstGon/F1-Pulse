@@ -6,10 +6,94 @@
     </div>
 
     <div class="hidden md:flex items-center space-x-8">
-        <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm" href="classification.php">Clasificación</a>
-        <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm" href="#">Calendario</a>
-        <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm" href="#">Escuderías</a>
-        <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm" href="#">Pilotos</a>
-        <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm" href="#">Crea tu fondo</a>
+        <!-- NAVIGATION ELEMENT -->
+        <a
+            href="classification.php"
+            class="group relative font-headline italic tracking-tighter uppercase text-sm transition-all duration-300
+                <?= ($currentPage === 'classification')
+                    ? 'text-white'
+                    : 'text-zinc-400 hover:text-white'
+                ?>"
+        >
+            Clasificación
+
+            <!-- ANIMATED UNDERLINE -->
+            <span
+                class="absolute left-0 -bottom-1 h-[2px] w-full bg-primary-container transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100
+                    <?= ($currentPage === 'classification') ? 'scale-x-100' : '' ?>">
+            </span>
+        </a>
+
+        <!-- NAVIGATION ELEMENT -->
+        <a
+            href="calendar.php"
+            class="group relative font-headline italic tracking-tighter uppercase text-sm transition-all duration-300
+                <?= ($currentPage === 'calendar')
+                    ? 'text-white'
+                    : 'text-zinc-400 hover:text-white'
+                ?>"
+        >
+            Calendario
+
+            <!-- ANIMATED UNDERLINE -->
+            <span
+                class="absolute left-0 -bottom-1 h-[2px] w-full bg-primary-container transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100
+                    <?= ($currentPage === 'calendar') ? 'scale-x-100' : '' ?>">
+            </span>
+        </a>
+
+        <!-- NAVIGATION ELEMENT -->
+        <a
+            href="teams.php"
+            class="group relative font-headline italic tracking-tighter uppercase text-sm transition-all duration-300
+                <?= ($currentPage === 'teams')
+                    ? 'text-white'
+                    : 'text-zinc-400 hover:text-white'
+                ?>"
+        >
+            Escuderías
+
+            <!-- ANIMATED UNDERLINE -->
+            <span
+                class="absolute left-0 -bottom-1 h-[2px] w-full bg-primary-container transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100
+                    <?= ($currentPage === 'teams') ? 'scale-x-100' : '' ?>">
+            </span>
+        </a>
+
+        <!-- NAVIGATION ELEMENT -->
+        <a
+            href="drivers.php"
+            class="group relative font-headline italic tracking-tighter uppercase text-sm transition-all duration-300
+                <?= ($currentPage === 'drivers')
+                    ? 'text-white'
+                    : 'text-zinc-400 hover:text-white'
+                ?>"
+        >
+            Pilotos
+
+            <!-- ANIMATED UNDERLINE -->
+            <span
+                class="absolute left-0 -bottom-1 h-[2px] w-full bg-primary-container transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100
+                    <?= ($currentPage === 'drivers') ? 'scale-x-100' : '' ?>">
+            </span>
+        </a>
+
+        <!-- NAVIGATION ELEMENT -->
+        <a
+            href="wallpaper.php"
+            class="group relative font-headline italic tracking-tighter uppercase text-sm transition-all duration-300
+                <?= ($currentPage === 'wallpaper')
+                    ? 'text-white'
+                    : 'text-zinc-400 hover:text-white'
+                ?>"
+        >
+            Crea tu fondo
+
+            <!-- ANIMATED UNDERLINE -->
+            <span
+                class="absolute left-0 -bottom-1 h-[2px] w-full bg-primary-container transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100
+                    <?= ($currentPage === 'wallpaper') ? 'scale-x-100' : '' ?>">
+            </span>
+        </a>
     </div>
 </nav>

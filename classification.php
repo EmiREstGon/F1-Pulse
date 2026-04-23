@@ -2,6 +2,7 @@
 require_once __DIR__ . '/config/bootstrap.php';
 
 $pageTitle = 'Clasificación - F1 Pulse';
+$currentPage = 'classification';
 $pageScripts = [
     'assets/js/views/standings.js',
     'assets/js/views/teams.js',
