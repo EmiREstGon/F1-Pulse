@@ -71,28 +71,28 @@ $pageScripts = [
                     <div class="flex flex-col md:flex-row gap-8 items-start md:items-center pt-10">
                         <!-- COUNTDOWN CARD -->
                         <div class="bg-surface-container-high border border-white/10 p-6 rounded-2xl">
-                            <p class="text-sm uppercase tracking-widest text-zinc-500 font-headline mb-3">
+                            <p class="text-sm uppercase tracking-widest text-primary-container font-bold font-headline mb-3">
                                 Cuenta atrás próximo GP
                             </p>
 
                             <div id="countdown" class="flex gap-6 text-center animate-pulse">
                                 <div class="w-12">
-                                    <p id="cd-days" class="text-3xl md:text-4xl font-black text-white">--</p>
+                                    <p id="cd-days" class="cd-number text-3xl font-headline italic md:text-4xl font-black text-white">--</p>
                                     <span class="text-xs uppercase text-zinc-500">Días</span>
                                 </div>
 
                                 <div class="w-12">
-                                    <p id="cd-hours" class="text-3xl md:text-4xl font-black text-white">--</p>
+                                    <p id="cd-hours" class="cd-number text-3xl font-headline italic md:text-4xl font-black text-white">--</p>
                                     <span class="text-xs uppercase text-zinc-500">Horas</span>
                                 </div>
 
                                 <div class="w-12">
-                                    <p id="cd-minutes" class="text-3xl md:text-4xl font-black text-white">--</p>
+                                    <p id="cd-minutes" class="cd-number text-3xl font-headline italic md:text-4xl font-black text-white">--</p>
                                     <span class="text-xs uppercase text-zinc-500">Min</span>
                                 </div>
 
                                 <div class="w-12">
-                                    <p id="cd-seconds" class="text-3xl md:text-4xl font-black text-white">--</p>
+                                    <p id="cd-seconds" class="cd-number text-3xl font-headline italic md:text-4xl font-black text-white">--</p>
                                     <span class="text-xs uppercase text-zinc-500">Seg</span>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@ $pageScripts = [
                         <!-- NEXT GP CARD -->
                         <div class="p-6 bg-surface-container-high border border-white/10 rounded-2xl min-w-[280px]"
                             id="next-gp-block">
-                            <p class="text-sm font-headline uppercase text-zinc-500 tracking-widest mb-3">
+                            <p class="text-sm font-headline uppercase text-primary-container font-bold tracking-widest mb-3">
                                 Próximo Gran Premio
                             </p>
 
