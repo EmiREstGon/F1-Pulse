@@ -6,7 +6,7 @@
     </div>
 
     <div class="hidden md:flex items-center space-x-8">
-        <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm" href="#">Clasificación</a>
+        <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm" href="classification.php">Clasificación</a>
         <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm" href="#">Calendario</a>
         <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm" href="#">Escuderías</a>
         <a class="text-zinc-400 hover:text-white transition-colors font-headline italic tracking-tighter uppercase text-sm" href="#">Pilotos</a>

@@ -11,6 +11,35 @@ function normalizeDriverName(name = "") {
     .trim();
 }
 
+function getPilotNationality(fullName) {
+  const normalized = normalizeDriverName(fullName);
+
+  for (const [key, value] of Object.entries(pilotNationality)) {
+    if (normalizeDriverName(key) === normalized) {
+      return value;
+    }
+  }
+
+  return "";
+}
+
+function getPilotCountryData(fullName) {
+  const nationality = getPilotNationality(fullName);
+  return getCountryData(nationality);
+}
+
+function getPilotCountryNameES(fullName) {
+  return getPilotCountryData(fullName).nameES;
+}
+
+function getPilotFlagUrl(fullName) {
+  return getPilotCountryData(fullName).flagUrl;
+}
+
+function getPilotCountryISO(fullName) {
+  return getPilotCountryData(fullName).iso;
+}
+
 function normalizeTeamName(name) {
   return (name || "")
     .toLowerCase()
@@ -197,15 +226,15 @@ function hasStandingsData(rows) {
 
 function getPositionBadgeClass(position, type = "driver") {
   if (position === 1) {
-    return "bg-yellow-500/20 text-yellow-300";
+    return "bg-yellow-500/30 text-yellow-300";
   }
 
   if (position === 2) {
-    return "bg-zinc-500/25 text-zinc-200";
+    return "bg-zinc-400/30 text-zinc-200";
   }
 
   if (position === 3) {
-    return "bg-orange-500/20 text-orange-300";
+    return "bg-orange-500/30 text-orange-300";
   }
 
   return type === "driver"

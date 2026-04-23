@@ -23,5 +23,9 @@ const countryToISO = {
   "Abu Dhabi": "AE",
   "Saudi Arabia": "SA",
   "Bahrain": "BH",
-  "Azerbaijan": "AZ"
+  "Azerbaijan": "AZ",
+  "Thailand": "TH",
+  "New Zealand": "NZ",
+  "Argentina": "AR",
+  "Finland": "FI"
 };

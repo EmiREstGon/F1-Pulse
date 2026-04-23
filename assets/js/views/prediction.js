@@ -159,6 +159,10 @@ function renderSeasonPrediction(driverRows = [], constructorRows = [], meetings 
   const completedMeetings = getCompletedMeetingsCount(meetings);
   const totalMeetings = getTotalMeetingsCount(meetings);
 
+  summary.classList.remove("animate-pulse");
+  driverContainer.classList.remove("animate-pulse");
+  constructorContainer.classList.remove("animate-pulse");
+
   summary.textContent = `Estimación del final de la temporada a partir del ritmo actual de puntuación en ${completedMeetings} de ${totalMeetings} carreras disputadas.`;
 
   const predictedDrivers = buildPredictionRows(safeDrivers, meetings, "full_name");

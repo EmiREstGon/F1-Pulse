@@ -8,8 +8,6 @@ function renderCircuitInfo(meeting) {
   block.classList.remove("animate-pulse");
 
   block.innerHTML = `
-    <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-primary-container/5 via-transparent to-transparent"></div>
-
     <div class="relative z-10 flex flex-col gap-8">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
         <div class="flex items-center gap-6">

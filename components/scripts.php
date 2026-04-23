@@ -6,6 +6,7 @@ $commonScripts = [
     'assets/js/data/countries.js',
     'assets/js/data/fallbacks.js',
     'assets/js/data/teams.js',
+    'assets/js/data/pilots.js',
     'assets/js/data/circuits.js',
     'assets/js/data/translations.js',
 
