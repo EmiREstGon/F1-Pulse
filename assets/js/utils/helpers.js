@@ -352,3 +352,26 @@ function buildPredictionRows(rows = [], meetings = [], nameField = "full_name") 
     };
   }).slice(0, 3);
 }
+
+function getRaceCountdownLabel(dateStr) {
+  if (!dateStr) return "Fecha no disponible";
+
+  const now = new Date();
+  const target = new Date(dateStr);
+  const diff = target - now;
+
+  if (diff <= 0) return "Finalizado";
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+  if (days > 0) {
+    return `Faltan ${days} días`;
+  }
+
+  if (hours > 0) {
+    return `Faltan ${hours} horas`;
+  }
+
+  return "Hoy";
+}

@@ -1,4 +1,4 @@
-async function loadClasification() {
+async function loadClassificationPage() {
   try {
     const meetings = await fetchJSON(
       `${API_BASE}/meetings?year=${CURRENT_YEAR}`,
@@ -64,4 +64,4 @@ async function loadClasification() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadClasification);
+document.addEventListener("DOMContentLoaded", loadClassificationPage);
