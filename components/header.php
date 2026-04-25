@@ -1,6 +1,6 @@
 <nav class="fixed top-0 w-full z-50 border-b border-white/10 bg-zinc-950/40 backdrop-blur-xl flex justify-between items-center px-8 py-4 max-w-full mx-auto">
     <div class="flex items-center gap-4">
-        <a href="index.php">
+        <a href="home">
             <img alt="F1 Pulse Logo" class="h-12 w-auto" src="assets/img/logos/web/Logo Dark.png" draggable="false" />
         </a>
     </div>
@@ -8,7 +8,7 @@
     <div class="hidden md:flex items-center space-x-8">
         <!-- NAVIGATION ELEMENT -->
         <a
-            href="classification.php"
+            href="classification"
             class="group relative font-headline italic tracking-tighter uppercase text-sm transition-all duration-300
                 <?= ($currentPage === 'classification')
                     ? 'text-white'
@@ -26,7 +26,7 @@
 
         <!-- NAVIGATION ELEMENT -->
         <a
-            href="calendar.php"
+            href="calendar"
             class="group relative font-headline italic tracking-tighter uppercase text-sm transition-all duration-300
                 <?= ($currentPage === 'calendar')
                     ? 'text-white'
@@ -44,7 +44,7 @@
 
         <!-- NAVIGATION ELEMENT -->
         <a
-            href="teams.php"
+            href="teams"
             class="group relative font-headline italic tracking-tighter uppercase text-sm transition-all duration-300
                 <?= ($currentPage === 'teams')
                     ? 'text-white'
@@ -62,7 +62,7 @@
 
         <!-- NAVIGATION ELEMENT -->
         <a
-            href="drivers.php"
+            href="drivers"
             class="group relative font-headline italic tracking-tighter uppercase text-sm transition-all duration-300
                 <?= ($currentPage === 'drivers')
                     ? 'text-white'
@@ -80,7 +80,7 @@
 
         <!-- NAVIGATION ELEMENT -->
         <a
-            href="wallpaper.php"
+            href="wallpaper"
             class="group relative font-headline italic tracking-tighter uppercase text-sm transition-all duration-300
                 <?= ($currentPage === 'wallpaper')
                     ? 'text-white'
