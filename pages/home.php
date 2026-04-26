@@ -130,6 +130,11 @@
                     </div>
 
                     <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center">
+                        <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Curvas</p>
+                        <p class="text-white font-bold italic text-2xl">--</p>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center">
                         <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Vueltas</p>
                         <p class="text-white font-bold italic text-2xl">--</p>
                     </div>
@@ -147,11 +152,6 @@
 
                     <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center">
                         <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Año récord</p>
-                        <p class="text-white font-bold italic text-2xl">--</p>
-                    </div>
-
-                    <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center">
-                        <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Curvas</p>
                         <p class="text-white font-bold italic text-2xl">--</p>
                     </div>
                 </div>

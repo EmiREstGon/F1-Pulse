@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/config/bootstrap.php';
 
+// Routing configuration
 $routes = [
     'home' => [
         'file' => 'home.php',
@@ -39,7 +40,10 @@ $routes = [
     'teams' => [
         'file' => 'teams.php',
         'title' => 'Escuderías - F1 Pulse',
-        'page' => 'teams'
+        'page' => 'teams',
+        'scripts' => [
+            'assets/js/pages/teams.js'
+        ]
     ],
     'drivers' => [
         'file' => 'drivers.php',
@@ -53,15 +57,19 @@ $routes = [
     ],
 ];
 
+// Base path for routing
 $basePath = '/f1-pulse';
 
+// Parse the requested URI
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $route = trim(str_replace($basePath, '', $uri), '/');
 
+// Default to home page when route is empty
 if ($route === '' || $route === 'index.php') {
     $route = $_GET['page'] ?? 'home';
 }
 
+// Check if the route exists to determine which page to load
 if (!array_key_exists($route, $routes)) {
     http_response_code(404);
     $pageTitle = '404 - F1 Pulse';

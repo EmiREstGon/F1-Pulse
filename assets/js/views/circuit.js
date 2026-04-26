@@ -47,6 +47,11 @@ function renderCircuitInfo(meeting) {
         </div>
 
         <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center hover:border-primary-container/30 transition-colors">
+          <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Curvas</p>
+          <p class="text-white font-bold italic text-2xl">${extra.turns}</p>
+        </div>
+
+        <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center hover:border-primary-container/30 transition-colors">
           <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Vueltas</p>
           <p class="text-white font-bold italic text-2xl">${extra.laps}</p>
         </div>
@@ -64,11 +69,6 @@ function renderCircuitInfo(meeting) {
         <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center hover:border-primary-container/30 transition-colors">
           <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Año récord</p>
           <p class="text-white font-bold italic text-2xl">${extra.lapRecordYear || "N/D"}</p>
-        </div>
-
-        <div class="rounded-2xl border border-white/5 bg-background/30 p-5 text-center hover:border-primary-container/30 transition-colors">
-          <p class="text-zinc-500 text-xs uppercase font-headline tracking-widest mb-2">Curvas</p>
-          <p class="text-white font-bold italic text-2xl">${extra.turns}</p>
         </div>
       </div>
     </div>

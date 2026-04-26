@@ -1,4 +1,4 @@
-<main class="pt-32 px-8 max-w-7xl mx-auto">
+<main class="pt-32 px-8 pb-20 max-w-7xl mx-auto">
     <!-- TITLE -->
     <section class="mb-12">
         <h1 class="text-5xl font-black italic font-headline uppercase text-white">
@@ -145,7 +145,7 @@
 
     <!-- SEASON PREDICTION CARD -->
     <div id="season-prediction-card"
-        class="bg-primary-container/80 p-6 my-12 md:p-8 relative overflow-hidden rounded-2xl border border-white/10">
+        class="bg-primary-container/80 p-6 mt-12 md:p-8 relative overflow-hidden rounded-2xl border border-white/10">
         <div class="relative">
             <!-- SEASON PREDICTION HEADER -->
             <div class="flex items-center justify-between mb-4">

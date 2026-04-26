@@ -61,3 +61,19 @@ const teamNationality = {
   "Haas": "United States",
   "Haas F1 Team": "United States"
 };
+
+const teamCars = {
+  "Mercedes": "assets/img/cars/mercedes-car.webp",
+  "Ferrari": "assets/img/cars/ferrari-car.webp",
+  "McLaren": "assets/img/cars/mclaren-car.webp",
+  "Red Bull Racing": "assets/img/cars/red-bull-racing-car.webp",
+  "Aston Martin": "assets/img/cars/aston-martin-car.webp",
+  "Alpine": "assets/img/cars/alpine-car.webp",
+  "Williams": "assets/img/cars/williams-car.webp",
+  "Racing Bulls": "assets/img/cars/racing-bulls-car.webp",
+  "RB": "assets/img/cars/racing-bulls-car.webp",
+  "Audi": "assets/img/cars/audi-car.webp",
+  "Cadillac": "assets/img/cars/cadillac-car.webp",
+  "Haas": "assets/img/cars/haas-car.webp",
+  "Haas F1 Team": "assets/img/cars/haas-car.webp"
+};

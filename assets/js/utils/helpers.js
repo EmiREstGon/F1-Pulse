@@ -96,6 +96,26 @@ function getTeamCountry(teamName) {
   return "";
 }
 
+function getTeamCarImage(teamName) {
+  const normalized = normalizeTeamName(teamName);
+
+  for (const [key, value] of Object.entries(teamCars)) {
+    if (normalizeTeamName(key) === normalized) {
+      return value;
+    }
+  }
+
+  return "assets/img/error/img-not-found.svg";
+}
+
+function getTeamDrivers(teamName, drivers = []) {
+  const normalized = normalizeTeamName(teamName);
+
+  return drivers.filter(driver =>
+    normalizeTeamName(driver.team_name || "") === normalized
+  );
+}
+
 function getCountryData(input) {
   let countryName = "";
 
@@ -218,6 +238,29 @@ function getCircuitTrackImage(meeting, index = 0) {
   }
 
   return meeting?.circuit_image || circuitImages[index % circuitImages.length];
+}
+
+function getRaceCountdownLabel(dateStr) {
+  if (!dateStr) return "Fecha no disponible";
+
+  const now = new Date();
+  const target = new Date(dateStr);
+  const diff = target - now;
+
+  if (diff <= 0) return "Finalizado";
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+  if (days > 0) {
+    return `Faltan ${days} días`;
+  }
+
+  if (hours > 0) {
+    return `Faltan ${hours} horas`;
+  }
+
+  return "Hoy";
 }
 
 function hasStandingsData(rows) {
@@ -351,27 +394,4 @@ function buildPredictionRows(rows = [], meetings = [], nameField = "full_name") 
       })
     };
   }).slice(0, 3);
-}
-
-function getRaceCountdownLabel(dateStr) {
-  if (!dateStr) return "Fecha no disponible";
-
-  const now = new Date();
-  const target = new Date(dateStr);
-  const diff = target - now;
-
-  if (diff <= 0) return "Finalizado";
-
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-
-  if (days > 0) {
-    return `Faltan ${days} días`;
-  }
-
-  if (hours > 0) {
-    return `Faltan ${hours} horas`;
-  }
-
-  return "Hoy";
 }
