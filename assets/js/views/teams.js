@@ -54,8 +54,7 @@ function renderTeams(drivers) {
             ${team.team_name}
           </p>
 
-          <p class="text-xs font-headline font-bold uppercase text-white/80 tracking-widest flex items-center gap-2 py-2 px-4 rounded-full bg-zinc-900/75">
-            ${teamCountry.nameES || "N/D"}
+          <div class="text-xs font-headline font-bold uppercase text-white/80 tracking-widest flex items-center gap-2 py-2 px-4 rounded-full bg-zinc-900/75">
             ${teamCountry.flagUrl ? `
               <img 
                 src="${teamCountry.flagUrl}" 
@@ -64,7 +63,8 @@ function renderTeams(drivers) {
                 draggable="false" 
               />
             ` : ""}
-          </p>
+            ${teamCountry.nameES || "N/D"}
+          </div>
         </div>
       </div>
     `;

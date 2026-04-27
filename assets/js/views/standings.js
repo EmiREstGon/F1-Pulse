@@ -54,8 +54,8 @@ function renderDriverStandings(rows, drivers = [], options = {}) {
 
     const badgeClass = getPositionBadgeClass(position, "driver");
     const teamColor = getTeamColor(teamName);
-    const pilotCountryName = getPilotCountryNameES(fullName);
-    const pilotFlagUrl = getPilotFlagUrl(fullName);
+    const driverCountryName = getDriverCountryNameES(fullName);
+    const driverFlagUrl = getDriverFlagUrl(fullName);
 
     return `
       <div class="flex items-center justify-between gap-4 p-4 rounded-2xl bg-gradient-to-r from-primary-container/10 to-transparent border border-white/5 hover:border-primary-container/30 hover:bg-primary-container/10 transition-all duration-300">
@@ -86,15 +86,15 @@ function renderDriverStandings(rows, drivers = [], options = {}) {
 
             <div class="flex flex-wrap items-center gap-2 mt-2 text-[11px] uppercase tracking-[0.08em] text-zinc-300">
               <span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/5 min-w-0">
-                ${pilotFlagUrl ? `
+                ${driverFlagUrl ? `
                   <img
-                    src="${pilotFlagUrl}"
-                    alt="${pilotCountryName}"
+                    src="${driverFlagUrl}"
+                    alt="${driverCountryName}"
                     class="w-4 h-auto object-cover rounded-[2px] border border-white/10 shrink-0"
                     draggable="false"
                   />
                 ` : ""}
-                <span class="truncate">${pilotCountryName || "Nacionalidad no disponible"}</span>
+                <span class="truncate">${driverCountryName || "Nacionalidad no disponible"}</span>
               </span>
 
               <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-white/5 border border-white/5 min-w-0" style="border-color: ${teamColor}; background-color: ${teamColor}25;">

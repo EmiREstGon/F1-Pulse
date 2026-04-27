@@ -19,7 +19,7 @@
                 <div class="absolute top-6 right-6 size-16 rounded-full bg-white/10 border border-white/10"></div>
 
                 <div class="relative z-20 p-6">
-                    <div class="h-10 w-56 bg-white/10 rounded-lg mb-5"></div>
+                    <div class="h-10 w-56 bg-white/10 mb-5"></div>
 
                     <div class="flex flex-wrap gap-4">
                         <div class="flex items-center gap-2">

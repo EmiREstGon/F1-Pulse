@@ -48,7 +48,10 @@ $routes = [
     'drivers' => [
         'file' => 'drivers.php',
         'title' => 'Pilotos - F1 Pulse',
-        'page' => 'drivers'
+        'page' => 'drivers',
+        'scripts' => [
+            'assets/js/pages/drivers.js'
+        ]
     ],
     'wallpaper' => [
         'file' => 'wallpaper.php',

@@ -11,10 +11,10 @@ function normalizeDriverName(name = "") {
     .trim();
 }
 
-function getPilotNationality(fullName) {
+function getDriverNationality(fullName) {
   const normalized = normalizeDriverName(fullName);
 
-  for (const [key, value] of Object.entries(pilotNationality)) {
+  for (const [key, value] of Object.entries(driverNationality)) {
     if (normalizeDriverName(key) === normalized) {
       return value;
     }
@@ -23,21 +23,29 @@ function getPilotNationality(fullName) {
   return "";
 }
 
-function getPilotCountryData(fullName) {
-  const nationality = getPilotNationality(fullName);
+function getDriverCountryData(fullName) {
+  const nationality = getDriverNationality(fullName);
   return getCountryData(nationality);
 }
 
-function getPilotCountryNameES(fullName) {
-  return getPilotCountryData(fullName).nameES;
+function getDriverCountryNameES(fullName) {
+  return getDriverCountryData(fullName).nameES;
 }
 
-function getPilotFlagUrl(fullName) {
-  return getPilotCountryData(fullName).flagUrl;
+function getDriverFlagUrl(fullName) {
+  return getDriverCountryData(fullName).flagUrl;
 }
 
-function getPilotCountryISO(fullName) {
-  return getPilotCountryData(fullName).iso;
+function getDriverCountryISO(fullName) {
+  return getDriverCountryData(fullName).iso;
+}
+
+function getDriverImage(driverName) {
+  return driverImages[driverName] || "assets/img/error/img-not-found.svg";
+}
+
+function getDriverNumberImage(driverName) {
+  return driverNumberImages[driverName] || "";
 }
 
 function normalizeTeamName(name) {

@@ -34,7 +34,7 @@ function renderTeamsPage(drivers = []) {
     const teamName = team.name;
     const teamColor = getTeamColor(teamName);
     const coloredLogo = getTeamColoredLogo(teamName);
-    const logo = getTeamMonoLogo(teamName);
+    const monoLogo = getTeamMonoLogo(teamName);
     const car = getTeamCarImage(teamName);
     const teamDrivers = team.drivers.length ? team.drivers : getTeamDrivers(teamName, drivers);
 
@@ -48,13 +48,13 @@ function renderTeamsPage(drivers = []) {
           src="${coloredLogo}" 
           alt="" 
           aria-hidden="true"
-          class="absolute -right-4 top-2/3 -translate-y-1/2 size-60 object-contain opacity-10 pointer-events-none select-none transition-all duration-500 group-hover:opacity-15 group-hover:scale-110"
+          class="absolute -right-4 top-2/3 -translate-y-1/2 size-60 object-contain opacity-20 pointer-events-none select-none transition-all duration-500 group-hover:opacity-25 group-hover:scale-110"
           draggable="false"
         />
 
         <div class="absolute top-6 right-6 size-16 rounded-full bg-black/25 border border-white/15 flex items-center justify-center backdrop-blur-sm z-20">
           <img 
-            src="${logo}" 
+            src="${monoLogo}" 
             alt="${teamName}" 
             class="max-w-10 max-h-10 object-contain"
             draggable="false"
