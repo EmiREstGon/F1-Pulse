@@ -32,7 +32,7 @@
 
                 <!-- HERO TITLE -->
                 <h1
-                    class="text-6xl md:text-9xl font-black italic font-headline leading-none tracking-tighter mb-8 uppercase text-white drop-shadow-2xl">
+                    class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black italic font-headline leading-none tracking-tighter mb-8 uppercase text-white drop-shadow-2xl">
                     VIVE LA <span class="text-primary-container">FÓRMULA 1</span> EN UN SOLO LUGAR
                 </h1>
 
@@ -408,7 +408,7 @@
         </div>
 
         <!-- CALENDAR LIST -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-px bg-white/5 p-2 animate-pulse" id="circuit-list">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px bg-white/5 p-2 animate-pulse" id="circuit-list">
             <!-- SKELETON LOOP -->
             <?php for ($i = 0; $i < 7; $i++): ?>
                 <div class="bg-surface-container-low p-8 relative overflow-hidden rounded-2xl m-2 min-h-[230px]">
@@ -454,7 +454,7 @@
             </div>
 
             <!-- TEAMS LIST -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 animate-pulse" id="team-list">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 animate-pulse" id="team-list">
                 <!-- SKELETON LOOP -->
                 <?php for ($i = 0; $i < 11; $i++): ?>
                     <div class="aspect-square max-w-[240px] bg-surface-container-high px-8 py-4 rounded-2xl flex flex-col items-center justify-center">
@@ -487,7 +487,7 @@
                     NUEVAS <span class="text-primary-container">INCORPORACIONES</span></h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <!-- AUDI CARD -->
                 <div
                     class="group relative bg-zinc-900/50 border border-white/5 p-12 overflow-hidden transform transition-all duration-300 ease-out hover:scale-105 hover:bg-zinc-900 rounded-3xl">

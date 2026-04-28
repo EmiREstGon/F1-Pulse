@@ -33,7 +33,7 @@ function renderCalendar(meetings) {
       : "bg-primary-container/20 text-primary border-primary-container/40";
 
     return `
-      <div class="relative overflow-hidden rounded-2xl group m-2 min-h-[230px] bg-surface-container-low cursor-pointer border border-white/5 hover:border-primary-container/40 transition-all duration-300">
+      <div class="relative overflow-hidden rounded-2xl group m-2 min-h-[230px] bg-surface-container-low border border-white/5 hover:border-primary-container/40 transition-all duration-300">
         <div 
           class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-50 scale-[0.75] group-hover:scale-[0.8] group-hover:opacity-80 transition-all duration-300"
           style="background-image: url('${bgImage}')"
@@ -93,15 +93,15 @@ function renderCalendar(meetings) {
 
   const viewAll = `
     <a 
-      href="index.php?page=calendar"
+      href="calendar"
       class="bg-surface-container-low flex flex-col items-center justify-center p-8 group cursor-pointer rounded-2xl m-2 min-h-[230px] border border-white/5 hover:border-primary-container/40 transition-all duration-300"
     >
-      <div class="w-12 h-12 rounded-full border border-zinc-700 flex items-center justify-center group-hover:bg-primary-container group-hover:border-primary-container transition-all mb-4">
-        <span class="material-symbols-outlined text-white">chevron_right</span>
+      <div class="size-12 rounded-full border border-zinc-700 flex items-center justify-center group-hover:bg-primary-container group-hover:border-primary-container transition-all mb-4">
+        <i class="fa-solid fa-chevron-right"></i>
       </div>
-      <span class="font-headline italic font-bold uppercase text-zinc-400 tracking-tighter group-hover:text-white">
-        Ver Calendario Completo
-      </span>
+      <div class="text-center font-headline italic font-bold uppercase text-zinc-400 tracking-tighter group-hover:text-white">
+        Ver calendario completo
+      </div>
     </a>
   `;
 

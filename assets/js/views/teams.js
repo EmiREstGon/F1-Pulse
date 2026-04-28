@@ -24,7 +24,7 @@ function renderTeams(drivers) {
 
   container.classList.remove("animate-pulse");
 
-  container.innerHTML = teams.map(team => {
+  const cards = teams.map(team => {
     const color = getTeamColor(team.team_name);
     const teamCountry = getCountryData(getTeamCountry(team.team_name));
 
@@ -69,4 +69,20 @@ function renderTeams(drivers) {
       </div>
     `;
   }).join("");
+
+  const viewAll = `
+    <a 
+      href="teams"
+      class="group aspect-square max-w-[240px] relative flex flex-col items-center justify-center px-8 py-4 rounded-2xl bg-white/5 transform transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-1 overflow-hidden border border-white/5 hover:border-primary-container/40 transition-all duration-300"
+    >
+      <div class="size-12 rounded-full border border-zinc-700 flex items-center justify-center group-hover:bg-primary-container group-hover:border-primary-container transition-all mb-4">
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+      <div class="text-center font-headline italic font-bold uppercase text-zinc-400 tracking-tighter group-hover:text-white">
+        Ver lista completa
+      </div>
+    </a>
+  `;
+
+  container.innerHTML = cards + viewAll;
 }

@@ -24,71 +24,71 @@ const driverNationality = {
 };
 
 const driverImages = {
-  "Franco Colapinto": "assets/img/pilots/alpine/franco-colapinto.webp",
-  "Pierre Gasly": "assets/img/pilots/alpine/pierre-gasly.webp",
+  "Franco Colapinto": "assets/img/drivers/alpine/franco-colapinto.webp",
+  "Pierre Gasly": "assets/img/drivers/alpine/pierre-gasly.webp",
 
-  "Fernando Alonso": "assets/img/pilots/aston-martin/fernando-alonso.webp",
-  "Lance Stroll": "assets/img/pilots/aston-martin/lance-stroll.webp",
+  "Fernando Alonso": "assets/img/drivers/aston-martin/fernando-alonso.webp",
+  "Lance Stroll": "assets/img/drivers/aston-martin/lance-stroll.webp",
 
-  "Gabriel Bortoleto": "assets/img/pilots/audi/gabriel-bortoleto.webp",
-  "Nico Hulkenberg": "assets/img/pilots/audi/nico-hulkenberg.webp",
+  "Gabriel Bortoleto": "assets/img/drivers/audi/gabriel-bortoleto.webp",
+  "Nico Hulkenberg": "assets/img/drivers/audi/nico-hulkenberg.webp",
 
-  "Sergio Perez": "assets/img/pilots/cadillac/sergio-perez.webp",
-  "Valtteri Bottas": "assets/img/pilots/cadillac/valtteri-bottas.webp",
+  "Sergio Perez": "assets/img/drivers/cadillac/sergio-perez.webp",
+  "Valtteri Bottas": "assets/img/drivers/cadillac/valtteri-bottas.webp",
 
-  "Charles Leclerc": "assets/img/pilots/ferrari/charles-leclerc.webp",
-  "Lewis Hamilton": "assets/img/pilots/ferrari/lewis-hamilton.webp",
+  "Charles Leclerc": "assets/img/drivers/ferrari/charles-leclerc.webp",
+  "Lewis Hamilton": "assets/img/drivers/ferrari/lewis-hamilton.webp",
 
-  "Esteban Ocon": "assets/img/pilots/haas/esteban-ocon.webp",
-  "Oliver Bearman": "assets/img/pilots/haas/oliver-bearman.webp",
+  "Esteban Ocon": "assets/img/drivers/haas/esteban-ocon.webp",
+  "Oliver Bearman": "assets/img/drivers/haas/oliver-bearman.webp",
 
-  "Lando Norris": "assets/img/pilots/mclaren/lando-norris.webp",
-  "Oscar Piastri": "assets/img/pilots/mclaren/oscar-piastri.webp",
+  "Lando Norris": "assets/img/drivers/mclaren/lando-norris.webp",
+  "Oscar Piastri": "assets/img/drivers/mclaren/oscar-piastri.webp",
 
-  "George Russell": "assets/img/pilots/mercedes/george-russell.webp",
-  "Kimi Antonelli": "assets/img/pilots/mercedes/kimi-antonelli.webp",
+  "George Russell": "assets/img/drivers/mercedes/george-russell.webp",
+  "Kimi Antonelli": "assets/img/drivers/mercedes/kimi-antonelli.webp",
 
-  "Arvid Lindblad": "assets/img/pilots/racing-bulls/arvid-lindblad.webp",
-  "Liam Lawson": "assets/img/pilots/racing-bulls/liam-lawson.webp",
+  "Arvid Lindblad": "assets/img/drivers/racing-bulls/arvid-lindblad.webp",
+  "Liam Lawson": "assets/img/drivers/racing-bulls/liam-lawson.webp",
 
-  "Max Verstappen": "assets/img/pilots/red-bull-racing/max-verstappen.webp",
-  "Isack Hadjar": "assets/img/pilots/red-bull-racing/isack-hadjar.webp",
+  "Max Verstappen": "assets/img/drivers/red-bull-racing/max-verstappen.webp",
+  "Isack Hadjar": "assets/img/drivers/red-bull-racing/isack-hadjar.webp",
 
-  "Alexander Albon": "assets/img/pilots/williams/alexander-albon.webp",
-  "Carlos Sainz": "assets/img/pilots/williams/carlos-sainz.webp"
+  "Alexander Albon": "assets/img/drivers/williams/alexander-albon.webp",
+  "Carlos Sainz": "assets/img/drivers/williams/carlos-sainz.webp"
 };
 
 const driverNumberImages = {
-  "Franco Colapinto": "assets/img/pilots/alpine/franco-colapinto-number.webp",
-  "Pierre Gasly": "assets/img/pilots/alpine/pierre-gasly-number.webp",
+  "Franco Colapinto": "assets/img/drivers/alpine/franco-colapinto-number.webp",
+  "Pierre Gasly": "assets/img/drivers/alpine/pierre-gasly-number.webp",
 
-  "Fernando Alonso": "assets/img/pilots/aston-martin/fernando-alonso-number.webp",
-  "Lance Stroll": "assets/img/pilots/aston-martin/lance-stroll-number.webp",
+  "Fernando Alonso": "assets/img/drivers/aston-martin/fernando-alonso-number.webp",
+  "Lance Stroll": "assets/img/drivers/aston-martin/lance-stroll-number.webp",
 
-  "Gabriel Bortoleto": "assets/img/pilots/audi/gabriel-bortoleto-number.webp",
-  "Nico Hulkenberg": "assets/img/pilots/audi/nico-hulkenberg-number.webp",
+  "Gabriel Bortoleto": "assets/img/drivers/audi/gabriel-bortoleto-number.webp",
+  "Nico Hulkenberg": "assets/img/drivers/audi/nico-hulkenberg-number.webp",
 
-  "Sergio Perez": "assets/img/pilots/cadillac/sergio-perez-number.webp",
-  "Valtteri Bottas": "assets/img/pilots/cadillac/valtteri-bottas-number.webp",
+  "Sergio Perez": "assets/img/drivers/cadillac/sergio-perez-number.webp",
+  "Valtteri Bottas": "assets/img/drivers/cadillac/valtteri-bottas-number.webp",
 
-  "Charles Leclerc": "assets/img/pilots/ferrari/charles-leclerc-number.webp",
-  "Lewis Hamilton": "assets/img/pilots/ferrari/lewis-hamilton-number.webp",
+  "Charles Leclerc": "assets/img/drivers/ferrari/charles-leclerc-number.webp",
+  "Lewis Hamilton": "assets/img/drivers/ferrari/lewis-hamilton-number.webp",
 
-  "Esteban Ocon": "assets/img/pilots/haas/esteban-ocon-number.webp",
-  "Oliver Bearman": "assets/img/pilots/haas/oliver-bearman-number.webp",
+  "Esteban Ocon": "assets/img/drivers/haas/esteban-ocon-number.webp",
+  "Oliver Bearman": "assets/img/drivers/haas/oliver-bearman-number.webp",
 
-  "Lando Norris": "assets/img/pilots/mclaren/lando-norris-number.webp",
-  "Oscar Piastri": "assets/img/pilots/mclaren/oscar-piastri-number.webp",
+  "Lando Norris": "assets/img/drivers/mclaren/lando-norris-number.webp",
+  "Oscar Piastri": "assets/img/drivers/mclaren/oscar-piastri-number.webp",
 
-  "George Russell": "assets/img/pilots/mercedes/george-russell-number.webp",
-  "Kimi Antonelli": "assets/img/pilots/mercedes/kimi-antonelli-number.webp",
+  "George Russell": "assets/img/drivers/mercedes/george-russell-number.webp",
+  "Kimi Antonelli": "assets/img/drivers/mercedes/kimi-antonelli-number.webp",
 
-  "Arvid Lindblad": "assets/img/pilots/racing-bulls/arvid-lindblad-number.webp",
-  "Liam Lawson": "assets/img/pilots/racing-bulls/liam-lawson-number.webp",
+  "Arvid Lindblad": "assets/img/drivers/racing-bulls/arvid-lindblad-number.webp",
+  "Liam Lawson": "assets/img/drivers/racing-bulls/liam-lawson-number.webp",
 
-  "Max Verstappen": "assets/img/pilots/red-bull-racing/max-verstappen-number.webp",
-  "Isack Hadjar": "assets/img/pilots/red-bull-racing/isack-hadjar-number.webp",
+  "Max Verstappen": "assets/img/drivers/red-bull-racing/max-verstappen-number.webp",
+  "Isack Hadjar": "assets/img/drivers/red-bull-racing/isack-hadjar-number.webp",
 
-  "Alexander Albon": "assets/img/pilots/williams/alexander-albon-number.webp",
-  "Carlos Sainz": "assets/img/pilots/williams/carlos-sainz-number.webp"
+  "Alexander Albon": "assets/img/drivers/williams/alexander-albon-number.webp",
+  "Carlos Sainz": "assets/img/drivers/williams/carlos-sainz-number.webp"
 };
