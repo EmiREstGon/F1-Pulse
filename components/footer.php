@@ -1,7 +1,7 @@
 <footer class="w-full border-t border-white/5 py-12 bg-zinc-950 flex flex-col md:flex-row justify-between items-center px-12 gap-6">
     <div class="flex flex-col items-center md:items-start gap-4">
         <div class="flex items-center gap-3 flex-wrap justify-center md:justify-start">
-            <img alt="F1 Pulse Logo" class="h-8 w-auto" src="assets/img/logos/web/Logo Dark.png" draggable="false" />
+            <img alt="F1 Pulse Logo" class="h-8 w-auto" src="assets/img/logos/web/logo-dark.png" draggable="false" />
             <span class="h-4 w-px bg-zinc-800 hidden md:block"></span>
 
             <div class="text-xs text-zinc-500 text-center md:text-left leading-relaxed">

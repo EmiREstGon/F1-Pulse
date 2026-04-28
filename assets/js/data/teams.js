@@ -63,17 +63,17 @@ const teamNationality = {
 };
 
 const teamCars = {
-  "Mercedes": "assets/img/cars/mercedes-car.webp",
-  "Ferrari": "assets/img/cars/ferrari-car.webp",
-  "McLaren": "assets/img/cars/mclaren-car.webp",
-  "Red Bull Racing": "assets/img/cars/red-bull-racing-car.webp",
-  "Aston Martin": "assets/img/cars/aston-martin-car.webp",
   "Alpine": "assets/img/cars/alpine-car.webp",
-  "Williams": "assets/img/cars/williams-car.webp",
-  "Racing Bulls": "assets/img/cars/racing-bulls-car.webp",
-  "RB": "assets/img/cars/racing-bulls-car.webp",
+  "Aston Martin": "assets/img/cars/aston-martin-car.webp",
   "Audi": "assets/img/cars/audi-car.webp",
   "Cadillac": "assets/img/cars/cadillac-car.webp",
+  "Ferrari": "assets/img/cars/ferrari-car.webp",
   "Haas": "assets/img/cars/haas-car.webp",
-  "Haas F1 Team": "assets/img/cars/haas-car.webp"
+  "Haas F1 Team": "assets/img/cars/haas-car.webp",
+  "McLaren": "assets/img/cars/mclaren-car.webp",
+  "Mercedes": "assets/img/cars/mercedes-car.webp",
+  "Racing Bulls": "assets/img/cars/racing-bulls-car.webp",
+  "RB": "assets/img/cars/racing-bulls-car.webp",
+  "Red Bull Racing": "assets/img/cars/red-bull-racing-car.webp",
+  "Williams": "assets/img/cars/williams-car.webp",
 };

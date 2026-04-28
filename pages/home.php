@@ -464,6 +464,10 @@
                         <div class="h-8 w-24 bg-white/10 rounded-full"></div>
                     </div>
                 <?php endfor; ?>
+                <div class="aspect-square max-w-[240px] bg-surface-container-high px-8 py-4 rounded-2xl flex flex-col items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-zinc-700 mb-4"></div>
+                    <div class="h-4 w-36 bg-zinc-700 rounded"></div>
+                </div>
             </div>
         </div>
     </section>

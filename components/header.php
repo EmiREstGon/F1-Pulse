@@ -2,7 +2,7 @@
     <div class="flex justify-between items-center max-w-full mx-auto">
         <div class="flex items-center gap-4">
             <a href="home">
-                <img alt="F1 Pulse Logo" class="h-12 w-auto" src="assets/img/logos/web/Logo Dark.png" draggable="false" />
+                <img alt="F1 Pulse Logo" class="h-12 w-auto" src="assets/img/logos/web/logo-dark.png" draggable="false" />
             </a>
         </div>
 

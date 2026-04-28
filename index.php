@@ -56,7 +56,10 @@ $routes = [
     'wallpaper' => [
         'file' => 'wallpaper.php',
         'title' => 'Crea tu fondo - F1 Pulse',
-        'page' => 'wallpaper'
+        'page' => 'wallpaper',
+        'scripts' => [
+            'assets/js/pages/wallpaper.js'
+        ]
     ],
 ];
 
