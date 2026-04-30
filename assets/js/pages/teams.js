@@ -40,7 +40,7 @@ function renderTeamsPage(drivers = []) {
 
     return `
       <a 
-        href="team-detail?team=${encodeURIComponent(teamName)}"
+        href="team-detail?team=${slugifyTeamName(teamName)}"
         class="group relative min-h-[300px] rounded-2xl overflow-hidden border border-white/10 bg-surface-container block transform transition-all duration-300 hover:scale-[1.015] hover:border-white/25"
         style="background: linear-gradient(135deg, ${teamColor}cc 45%, ${teamColor}ee 0%, #111317 120%);"
       >
@@ -80,7 +80,7 @@ function renderTeamsPage(drivers = []) {
                   />
                 </div>
                 <span class="font-headline text-sm font-bold">
-                  ${driver.full_name || `${driver.first_name || ''} ${driver.last_name || ''}`.trim() || 'Piloto'}
+                  ${driver.first_name || ''} ${driver.last_name || ''}
                 </span>
               </div>
             `).join("")}

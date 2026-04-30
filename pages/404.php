@@ -33,7 +33,7 @@
         </p>
 
         <a
-            href="index.php?page=home"
+            href="/f1-pulse/home"
             class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-primary-container text-white font-headline uppercase italic font-black tracking-tight hover:scale-105 transition-transform">
             Volver a boxes
             <i class="fa-solid fa-arrow-right"></i>

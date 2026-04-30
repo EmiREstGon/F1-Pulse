@@ -61,6 +61,14 @@ $routes = [
             'assets/js/pages/wallpaper.js'
         ]
     ],
+    'team-detail' => [
+        'file' => 'team-detail.php',
+        'title' => 'Detalle de equipo - F1 Pulse',
+        'page' => 'team-detail',
+        'scripts' => [
+            'assets/js/pages/team-detail.js'
+        ]
+    ]
 ];
 
 // Base path for routing

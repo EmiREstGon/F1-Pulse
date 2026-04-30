@@ -40,12 +40,32 @@ function getDriverCountryISO(fullName) {
   return getDriverCountryData(fullName).iso;
 }
 
+function getDriverAssetKey(driverName = "") {
+  const normalized = normalizeDriverName(driverName);
+
+  const allDriverNames = new Set([
+    ...Object.keys(driverImages || {}),
+    ...Object.keys(driverNumberImages || {}),
+    ...Object.keys(driverNationality || {})
+  ]);
+
+  for (const key of allDriverNames) {
+    if (normalizeDriverName(key) === normalized) {
+      return key;
+    }
+  }
+
+  return driverName;
+}
+
 function getDriverImage(driverName) {
-  return driverImages[driverName] || "assets/img/error/img-not-found.svg";
+  const key = getDriverAssetKey(driverName);
+  return driverImages[key] || "assets/img/error/img-not-found.svg";
 }
 
 function getDriverNumberImage(driverName) {
-  return driverNumberImages[driverName] || "";
+  const key = getDriverAssetKey(driverName);
+  return driverNumberImages[key] || "";
 }
 
 function normalizeTeamName(name) {
@@ -119,9 +139,38 @@ function getTeamCarImage(teamName) {
 function getTeamDrivers(teamName, drivers = []) {
   const normalized = normalizeTeamName(teamName);
 
-  return drivers.filter(driver =>
-    normalizeTeamName(driver.team_name || "") === normalized
-  );
+  return drivers.filter(driver => {
+    const driverTeam = driver.team_name || driver.team || "";
+    return normalizeTeamName(driverTeam) === normalized;
+  });
+}
+
+function getTeamCarModel(teamName) {
+  const normalized = normalizeTeamName(teamName);
+
+  for (const [key, value] of Object.entries(teamCarModels)) {
+    if (normalizeTeamName(key) === normalized) {
+      return value;
+    }
+  }
+
+  return "Modelo no disponible";
+}
+
+function slugifyTeamName(teamName = "") {
+  return normalizeTeamName(teamName)
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]/g, "");
+}
+
+function getTeamNameFromSlug(slug = "") {
+  const normalizedSlug = slug.toLowerCase();
+
+  const allTeams = Object.keys(teamColoredLogos);
+
+  return allTeams.find(team =>
+    slugifyTeamName(team) === normalizedSlug
+  ) || "";
 }
 
 function getCountryData(input) {
