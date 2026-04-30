@@ -38,7 +38,7 @@ function renderDriversPage(drivers = []) {
 
     return `
       <a
-        href="driver-detail.php?driver=${encodeURIComponent(fullName)}"
+        href="team-detail?team=${slugifyTeamName(teamName)}"
         class="group relative h-[340px] rounded-2xl overflow-hidden border border-white/10 bg-surface-container block transition-all duration-300 hover:scale-[1.015] hover:border-white/25"
         style="background: linear-gradient(135deg, ${teamColor}cc 0%, ${teamColor}99 48%, #111317 130%);"
       >

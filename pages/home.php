@@ -493,8 +493,10 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <!-- AUDI CARD -->
-                <div
-                    class="group relative bg-zinc-900/50 border border-white/5 p-12 overflow-hidden transform transition-all duration-300 ease-out hover:scale-105 hover:bg-zinc-900 rounded-3xl">
+                <a 
+                    href="team-detail?team=audi"
+                    class="group relative bg-zinc-900/50 border border-white/5 p-12 overflow-hidden transform transition-all duration-300 ease-out hover:scale-105 hover:bg-zinc-900 rounded-3xl"
+                >
                     <!-- CARD HEADER -->
                     <div class="flex justify-between items-center mb-6">
                         <div class="flex flex-col">
@@ -521,11 +523,13 @@
                         class="flex items-center gap-2 text-white font-headline italic font-bold uppercase text-sm tracking-tighter group-hover:text-primary-container transition-colors">
                         Explorar equipo <span class="text-sm"><i class="fa-solid fa-angle-right"></i></span>
                     </div>
-                </div>
+                </a>
 
                 <!-- CADILLAC CARD -->
-                <div
-                    class="group relative bg-zinc-900/50 border border-white/5 p-12 overflow-hidden transform transition-all duration-300 ease-out hover:scale-105 hover:bg-zinc-900 rounded-3xl">
+                <a 
+                    href="team-detail?team=cadillac"
+                    class="group relative bg-zinc-900/50 border border-white/5 p-12 overflow-hidden transform transition-all duration-300 ease-out hover:scale-105 hover:bg-zinc-900 rounded-3xl"
+                >
                     <!-- CARD HEADER -->
                     <div class="flex justify-between items-center mb-6">
                         <div class="flex flex-col">
@@ -553,7 +557,7 @@
                         class="flex items-center gap-2 text-white font-headline italic font-bold uppercase text-sm tracking-tighter group-hover:text-primary-container transition-colors">
                         Explorar equipo <span class="text-sm"><i class="fa-solid fa-angle-right"></i></span>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>

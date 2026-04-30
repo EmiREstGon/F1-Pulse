@@ -68,6 +68,14 @@ $routes = [
         'scripts' => [
             'assets/js/pages/team-detail.js'
         ]
+    ],
+    'circuit-detail' => [
+        'file' => 'circuit-detail.php',
+        'title' => 'Detalle de circuito - F1 Pulse',
+        'page' => 'circuit-detail',
+        'scripts' => [
+            'assets/js/pages/circuit-detail.js'
+        ]
     ]
 ];
 

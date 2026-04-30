@@ -20,7 +20,7 @@ const countryToISO = {
   "Singapore": "SG",
   "Qatar": "QA",
   "UAE": "AE",
-  "Abu Dhabi": "AE",
+  "United Arab Emirates": "AE",
   "Saudi Arabia": "SA",
   "Bahrain": "BH",
   "Azerbaijan": "AZ",

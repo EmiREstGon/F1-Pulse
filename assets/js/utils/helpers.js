@@ -97,7 +97,7 @@ function getTeamColoredLogo(teamName) {
     }
   }
 
-  return getTeamMonoLogo(teamName);  // fallback mono si falla
+  return getTeamMonoLogo(teamName);  // fallback mono if it fails
 }
 
 function getTeamColor(teamName) {
@@ -109,7 +109,7 @@ function getTeamColor(teamName) {
     }
   }
 
-  return "#1f2937";  // fallback color oscuro si falla
+  return "#1f2937";  // fallback dark color if it fails
 }
 
 function getTeamCountry(teamName) {
@@ -241,6 +241,104 @@ function getMeetingNameES(meeting) {
   return grandPrixTranslations[meetingName] || meetingName || "Gran Premio";
 }
 
+function normalizeCircuitName(name = "") {
+  return name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getCircuitCanonicalName(input = "") {
+  const raw = input || "";
+  const normalizedInput = normalizeCircuitName(raw);
+
+  for (const [alias, canonical] of Object.entries(circuitAliases || {})) {
+    if (normalizeCircuitName(alias) === normalizedInput) {
+      return canonical;
+    }
+  }
+
+  return raw;
+}
+
+function slugifyCircuitName(circuitName = "") {
+  return normalizeCircuitName(circuitName)
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]/g, "");
+}
+
+function getCircuitNameFromSlug(slug = "") {
+  const normalizedSlug = slug.toLowerCase();
+
+  // Search in canonical names
+  const allCircuitNames = new Set([
+    ...Object.keys(circuitExtraInfo || {}),
+    ...Object.values(circuitAliases || {})
+  ]);
+
+  for (const circuit of allCircuitNames) {
+    if (slugifyCircuitName(circuit) === normalizedSlug) {
+      return circuit;
+    }
+  }
+
+  // Search also in aliases
+  for (const [alias, canonical] of Object.entries(circuitAliases || {})) {
+    if (slugifyCircuitName(alias) === normalizedSlug) {
+      return canonical;
+    }
+  }
+
+  return "";
+}
+
+function slugifyCircuitNameFromMeeting(meeting = {}) {
+  const candidates = [
+    meeting?.circuit_short_name,
+    meeting?.location,
+    meeting?.meeting_name?.replace(" Grand Prix", "").trim()
+  ].filter(Boolean);
+
+  for (const candidate of candidates) {
+    const canonical = getCircuitCanonicalName(candidate);
+
+    if (circuitExtraInfo[canonical] || circuitTrackImages[canonical] || circuitSectoredImages[canonical]) {
+      return slugifyCircuitName(canonical);
+    }
+  }
+
+  const fallback = candidates[0] || "circuito";
+  return slugifyCircuitName(getCircuitCanonicalName(fallback));
+}
+
+function getCircuitSectoredImageByName(circuitName = "") {
+  const canonical = getCircuitCanonicalName(circuitName);
+  return circuitSectoredImages[canonical] || circuitTrackImages[canonical] || "assets/img/error/img-not-found.svg";
+}
+
+function getCircuitTrackImageByName(circuitName = "") {
+  const canonical = getCircuitCanonicalName(circuitName);
+  return circuitTrackImages[canonical] || "assets/img/error/img-not-found.svg";
+}
+
+function getCircuitLocation(circuitName = "") {
+  const canonical = getCircuitCanonicalName(circuitName);
+  return circuitLocations[canonical] || null;
+}
+
+function getCircuitTicketUrl(circuitName = "") {
+  const canonical = getCircuitCanonicalName(circuitName);
+
+  return circuitTicketUrls?.[canonical] || "https://tickets.formula1.com/es";
+}
+
+function formatWeatherValue(value, suffix = "") {
+  if (value === null || value === undefined || value === "") return "N/D";
+  return `${value}${suffix}`;
+}
+
 function getCircuitNameES(meeting) {
   const rawCircuit =
     meeting?.circuit_short_name ||
@@ -309,15 +407,23 @@ function getRaceCountdownLabel(dateStr) {
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
 
-  if (days > 0) {
+  if (days > 1) {
     return `Faltan ${days} días`;
   }
 
-  if (hours > 0) {
+  if (days > 0) {
+    return `Falta ${days} día`;
+  }
+
+  if (hours > 1) {
     return `Faltan ${hours} horas`;
   }
 
-  return "Hoy";
+  if (hours > 0) {
+    return `Falta ${hours} hora`;
+  }
+
+  return "¡En curso!";
 }
 
 function hasStandingsData(rows) {

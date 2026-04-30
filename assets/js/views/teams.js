@@ -25,12 +25,14 @@ function renderTeams(drivers) {
   container.classList.remove("animate-pulse");
 
   const cards = teams.map(team => {
+    const teamName = team.team_name;
     const color = getTeamColor(team.team_name);
     const teamCountry = getCountryData(getTeamCountry(team.team_name));
 
     return `
-      <div 
-        class="group aspect-square max-w-[240px] relative flex flex-col items-center justify-center px-8 py-4 rounded-2xl transform transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-1 cursor-pointer overflow-hidden"
+      <a 
+        href="team-detail?team=${slugifyTeamName(teamName)}"
+        class="group aspect-square max-w-[240px] relative flex flex-col items-center justify-center px-8 py-4 rounded-2xl transform transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-1 overflow-hidden"
       >
         <div 
           class="absolute inset-0 opacity-70 group-hover:opacity-80 transition-all"
@@ -66,7 +68,7 @@ function renderTeams(drivers) {
             ${teamCountry.nameES || "N/D"}
           </div>
         </div>
-      </div>
+      </a>
     `;
   }).join("");
 

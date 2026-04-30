@@ -33,7 +33,10 @@ function renderCalendar(meetings) {
       : "bg-primary-container/20 text-primary border-primary-container/40";
 
     return `
-      <div class="relative overflow-hidden rounded-2xl group m-2 min-h-[230px] bg-surface-container-low border border-white/5 hover:border-primary-container/40 transition-all duration-300">
+      <a 
+        href="circuit-detail?circuit=${slugifyCircuitNameFromMeeting(meeting)}"
+        class="relative overflow-hidden rounded-2xl group m-2 min-h-[230px] bg-surface-container-low border border-white/5 hover:border-primary-container/40 transition-all duration-300 block"
+      >
         <div 
           class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-50 scale-[0.75] group-hover:scale-[0.8] group-hover:opacity-80 transition-all duration-300"
           style="background-image: url('${bgImage}')"
@@ -87,7 +90,7 @@ function renderCalendar(meetings) {
             </span>
           </div>
         </div>
-      </div>
+      </a>
     `;
   }).join("");
 
@@ -142,7 +145,10 @@ function renderFullCalendar(meetings) {
       : "bg-primary-container/20 text-primary border-primary-container/40";
 
     return `
-      <div class="relative overflow-hidden rounded-2xl group min-h-[230px] bg-surface-container-low cursor-pointer m-2 border border-white/5 hover:border-primary-container/40 transition-all duration-300">
+      <a 
+        href="circuit-detail?circuit=${slugifyCircuitNameFromMeeting(meeting)}"
+        class="relative overflow-hidden rounded-2xl group min-h-[230px] bg-surface-container-low cursor-pointer m-2 border border-white/5 hover:border-primary-container/40 transition-all duration-300 block"
+      >
         <div class="absolute inset-0 p-8 md:p-10 flex items-center justify-center">
           <div 
             class="w-full h-full bg-contain bg-center bg-no-repeat opacity-50 group-hover:scale-105 group-hover:opacity-80 transition-all duration-300"
@@ -198,7 +204,7 @@ function renderFullCalendar(meetings) {
             </span>
           </div>
         </div>
-      </div>
+      </a>
     `;
   }).join("");
 }
