@@ -8,7 +8,7 @@ function renderDriverStandings(rows, drivers = [], options = {}) {
     splitAt = null
   } = options;
 
-  const safeRows = hasStandingsData(rows) ? rows : fallbackDriverStandings;
+  const safeRows = mergeDriverStandingsWithFallback(rows);
 
   const driversMap = new Map(
     (drivers || []).map(driver => [Number(driver.driver_number), driver])
@@ -147,7 +147,7 @@ function renderConstructorStandings(rows, options = {}) {
     splitAt = null
   } = options;
 
-  const safeRows = hasStandingsData(rows) ? rows : fallbackConstructorStandings;
+  const safeRows = hasValidConstructorStandingsData(rows) ? rows : fallbackConstructorStandings;
 
   let standings = [...safeRows]
     .filter(row => row.position_current != null)

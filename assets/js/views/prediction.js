@@ -153,8 +153,8 @@ function renderSeasonPrediction(driverRows = [], constructorRows = [], meetings 
 
   if (!driverContainer || !constructorContainer || !summary) return;
 
-  const safeDrivers = hasStandingsData(driverRows) ? driverRows : fallbackDriverStandings;
-  const safeConstructors = hasStandingsData(constructorRows) ? constructorRows : fallbackConstructorStandings;
+  const safeDrivers = mergeDriverStandingsWithFallback(driverRows);
+  const safeConstructors = hasValidConstructorStandingsData(constructorRows) ? constructorRows : fallbackConstructorStandings;
 
   const completedMeetings = getCompletedMeetingsCount(meetings);
   const totalMeetings = getTotalMeetingsCount(meetings);

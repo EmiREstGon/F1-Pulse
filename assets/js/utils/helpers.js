@@ -430,6 +430,62 @@ function hasStandingsData(rows) {
   return Array.isArray(rows) && rows.length > 0;
 }
 
+function hasValidDriverStandingsData(rows = []) {
+  return Array.isArray(rows) &&
+    rows.length >= 5 &&
+    rows.every(row =>
+      row.position_current != null &&
+      row.points_current != null &&
+      (
+        row.full_name ||
+        row.first_name ||
+        row.last_name ||
+        row.driver_number
+      )
+    );
+}
+
+function hasValidConstructorStandingsData(rows = []) {
+  return Array.isArray(rows) &&
+    rows.length >= 5 &&
+    rows.every(row =>
+      row.position_current != null &&
+      row.points_current != null &&
+      row.team_name &&
+      row.team_name !== "Equipo" &&
+      row.team_name !== "Equipo no disponible"
+    );
+}
+
+function getFallbackDriverByNumber(driverNumber) {
+  return fallbackDriverStandings.find(driver =>
+    Number(driver.driver_number) === Number(driverNumber)
+  );
+}
+
+function mergeDriverStandingsWithFallback(rows = []) {
+  if (!hasValidDriverStandingsData(rows)) {
+    return fallbackDriverStandings;
+  }
+
+  return rows
+    .map(row => {
+      const fallback = getFallbackDriverByNumber(row.driver_number) || {};
+
+      return {
+        ...fallback,
+        ...row,
+        driver_number: row.driver_number ?? fallback.driver_number,
+        position_current: row.position_current ?? fallback.position_current,
+        points_current: row.points_current ?? fallback.points_current ?? 0,
+        full_name: row.full_name || fallback.full_name,
+        team_name: row.team_name || fallback.team_name,
+        headshot_url: row.headshot_url || fallback.headshot_url
+      };
+    })
+    .filter(row => row.position_current != null);
+}
+
 function getPositionBadgeClass(position, type = "driver") {
   if (position === 1) {
     return "bg-yellow-500/30 text-yellow-300";

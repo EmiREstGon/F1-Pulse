@@ -1,5 +1,5 @@
 <?php
-// Scripts comunes para todas las páginas
+// Common scripts for all pages
 $commonScripts = [
     'assets/js/config.js',
 
@@ -18,11 +18,11 @@ $commonScripts = [
     'assets/js/services/openf1.js',
 ];
 
-// Scripts específicos de cada página
+// Specific scripts for each page
 $pageScripts = $pageScripts ?? [];
 ?>
 
-<!-- Configuración global -->
+<!-- Global configuration -->
 <script>
     window.APP_CONFIG = {
         OPENF1_BASE_URL: "<?= htmlspecialchars($_ENV['OPENF1_BASE_URL'] ?? '', ENT_QUOTES) ?>",
@@ -30,12 +30,12 @@ $pageScripts = $pageScripts ?? [];
     };
 </script>
 
-<!-- Scripts comunes -->
+<!-- Common scripts loop -->
 <?php foreach ($commonScripts as $script): ?>
     <script src="<?= $script ?>"></script>
 <?php endforeach; ?>
 
-<!-- Scripts específicos de la página -->
+<!-- Specific scripts for each page loop -->
 <?php foreach ($pageScripts as $script): ?>
     <script src="<?= $script ?>"></script>
 <?php endforeach; ?>
