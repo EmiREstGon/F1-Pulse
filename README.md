@@ -31,16 +31,17 @@ La plataforma permite consultar datos sobre pilotos, escuderías, calendario de 
 ## Tecnologías utilizadas
 
 - HTML5
-- Tailwind CSS
 - JavaScript
+- Tailwind CSS
+- Font Awesome
 - PHP 8.4.12
 - Apache HTTP Server 2.4.65
-- Composer
+- Composer 2.8.12
 - PHP Dotenv
 - OpenF1 API
 - Google Maps Embed API
-- Font Awesome
-- Git y GitHub
+- Git 2.52.0.windows.1
+- GitHub
 
 ## APIs y servicios externos utilizados
 
@@ -212,4 +213,4 @@ Emilio Rafael Estévez González
 
 ## Licencia
 
-Este proyecto se distribuye bajo la licencia Creative Commons BY-NC-SA 4.0.
+Este proyecto se distribuye bajo la licencia Creative Commons BY-NC-SA 4.0. Para más información, consultar el archivo `LICENSE.md`.
